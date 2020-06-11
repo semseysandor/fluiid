@@ -341,3 +341,6 @@ healthchecksdb
 
 # Solution file
 *.sln
+
+# Project Files
+*.csproj
