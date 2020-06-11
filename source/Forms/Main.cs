@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Fluiid_cs
+namespace Fluiid_cs.source.Forms
 {
-	public partial class Form1 : Form
+	public partial class Main : Form
 	{
-		public Form1()
+		public Main()
 		{
 			InitializeComponent();
 		}
