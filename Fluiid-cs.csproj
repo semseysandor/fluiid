@@ -132,7 +132,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="asset\config.xml" />
+    <Content Include="Asset\config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
