@@ -9,7 +9,7 @@ namespace Fluiid_cs.Source.Components.Logger
   /// <summary>
   /// Logger interface
   /// </summary>
-  interface LoggerInterface
+  public interface LoggerInterface
   {
     /// <summary>
     /// Logs a critical event
