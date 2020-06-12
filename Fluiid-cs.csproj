@@ -64,6 +64,10 @@
   <ItemGroup>
     <Compile Include="Source\App.cs" />
     <Compile Include="Source\Components\Configurator.cs" />
+    <Compile Include="Source\Components\Logger\FileLogger.cs" />
+    <Compile Include="Source\Components\Logger\Logger.cs" />
+    <Compile Include="Source\Components\Logger\LoggerInterface.cs" />
+    <Compile Include="Source\Components\Logger\LogLevels.cs" />
     <Compile Include="Source\Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>

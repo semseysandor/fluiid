@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Fluiid_cs.Source.Components.Logger;
 
 namespace Fluiid_cs.Source
 {
@@ -12,6 +13,11 @@ namespace Fluiid_cs.Source
     /// Configurator
     /// </summary>
     private Configurator configurator;
+
+    /// <summary>
+    /// Logger
+    /// </summary>
+    private FileLogger logger;
 
     /// <summary>
     /// Main Window
@@ -34,12 +40,18 @@ namespace Fluiid_cs.Source
     {
       try
       {
+        // Boot Logger
+        logger = new FileLogger();
+        logger.LogFile = "log_" + DateTime.Now.ToString("yy-MM-dd") + ".txt";
+        logger.Debug("Logger loaded");
+
         // Boot Configurator
         configurator = new Configurator(this);
         if (configurator.Boot() is false)
         {
           throw new Exception("config problem");
         }
+        logger.Debug("Configurator loaded");
 
         main = new Forms.Main();
         Application.Run(main);
