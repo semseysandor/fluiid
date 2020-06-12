@@ -63,11 +63,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\App.cs" />
+    <Compile Include="Source\Components\Communicator.cs" />
     <Compile Include="Source\Components\Configurator.cs" />
     <Compile Include="Source\Components\Logger\FileLogger.cs" />
     <Compile Include="Source\Components\Logger\Logger.cs" />
     <Compile Include="Source\Components\Logger\LoggerInterface.cs" />
     <Compile Include="Source\Components\Logger\LogLevels.cs" />
+    <Compile Include="Source\Exception\BaseException.cs" />
+    <Compile Include="Source\Exception\CommunicationException.cs" />
+    <Compile Include="Source\Exception\ExceptionHandler.cs" />
+    <Compile Include="Source\Exception\LoggerException.cs" />
     <Compile Include="Source\Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,9 +119,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Source\Exception\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="config.xml" />
   </ItemGroup>
