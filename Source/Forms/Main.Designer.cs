@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
       this.ButtonWash = new System.Windows.Forms.Button();
       this.ButtonInit = new System.Windows.Forms.Button();
       this.Label1 = new System.Windows.Forms.Label();
@@ -217,6 +218,7 @@
       this.Controls.Add(this.TextConnection);
       this.Controls.Add(this.ButtonDisconnect);
       this.Controls.Add(this.ButtonConnect);
+      this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.Name = "Main";
       this.Text = "Main";
       this.MenuStrip1.ResumeLayout(false);

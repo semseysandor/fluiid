@@ -73,6 +73,7 @@
       this.Controls.Add(this.BtnClose);
       this.Controls.Add(this.TextInfo);
       this.Controls.Add(this.PictureBox1);
+      this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.Name = "About";
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "About";
