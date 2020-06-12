@@ -17,7 +17,7 @@ namespace Fluiid_cs.Source.Components.Logger
     /// Constructor
     /// </summary>
     /// <param name="path">Log file path</param>
-    public FileLogger(string path = "")
+    public FileLogger(string path = ""):base()
     {
       LogFile = path;
     }

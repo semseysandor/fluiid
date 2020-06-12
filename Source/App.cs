@@ -57,8 +57,7 @@ namespace Fluiid_cs.Source
         exceptionHandler = new ExceptionHandler();
 
         // Boot Logger
-        logger = new FileLogger();
-        logger.LogFile = "log_" + DateTime.Now.ToString("yy-MM-dd") + ".txt";
+        logger = new FileLogger("log_" + DateTime.Now.ToString("yy-MM-dd") + ".txt");
         logger.Debug("Logger loaded");
 
         // Logger now ready --> give to ExceptionHandler
@@ -71,6 +70,8 @@ namespace Fluiid_cs.Source
 
         // Boot communicator
         communicator = new Communicator(configurator.Port, ref logger);
+        communicator.Boot();
+        logger.Debug("Communicator loaded");
 
         main = new Forms.Main();
         Application.Run(main);
