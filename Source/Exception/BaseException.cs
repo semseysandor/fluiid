@@ -8,7 +8,7 @@
     /// <summary>
     /// Exception context
     /// </summary>
-    protected string context;
+    public string Context { get; }
 
     /// <summary>
     /// Constructor
@@ -17,7 +17,7 @@
     /// <param name="message">Exception message</param>
     public BaseException(string context, string message): base(message)
     {
-      this.context = context;
+      Context = context;
     }
 
     /// <summary>
@@ -28,16 +28,7 @@
     /// <param name="inner">Inner exception</param>
     public BaseException(string context, string message, System.Exception inner): base(message, inner)
     {
-      this.context = context;
-    }
-
-    /// <summary>
-    /// Get context
-    /// </summary>
-    /// <returns>Exception context</returns>
-    public string GetContext()
-    {
-      return context;
+      Context = context;
     }
   }
 }

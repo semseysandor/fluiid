@@ -1,4 +1,5 @@
 ﻿using System;
+using Fluiid_cs.Source.Exception;
 
 namespace Fluiid_cs.Source.Components.Logger
 {
@@ -28,23 +29,30 @@ namespace Fluiid_cs.Source.Components.Logger
     /// <param name="message">Message to log</param>
     public override void Log(int msgLevel, string message)
     {
-      // No log file specified --> abort
-      if (LogFile == null)
+      try
       {
-        return;
+        // No log file specified --> abort
+        if (LogFile == null)
+        {
+          return;
+        }
+
+        // If message level is hugher than log level --> important msg, log it
+        if (msgLevel >= LogLevel)
+        {
+          // Also write to console
+          Console.WriteLine(message);
+
+          // Compose log line
+          message = "[" + MessageLevel(msgLevel) + "] [" + DateTime.Now.ToString() + "] " + message + Environment.NewLine;
+
+          // Write to log
+          System.IO.File.AppendAllText(LogFile, message);
+        }    
       }
-
-      // If message level is hugher than log level --> important msg, log it
-      if (msgLevel >= LogLevel)
+      catch (System.Exception ex)
       {
-        // Also write to console
-        Console.WriteLine(message);
-
-        // Compose log line
-        message = "[" + MessageLevel(msgLevel) + "] [" + DateTime.Now.ToString() + "] " + message + Environment.NewLine;
-
-        // Write to log
-        System.IO.File.AppendAllText(LogFile, message);
+        throw new LoggerException("Logging failed.", ex);
       }
     }
   }

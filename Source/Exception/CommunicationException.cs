@@ -8,13 +8,13 @@
     /// <summary>
     /// Exception context
     /// </summary>
-    public const string Context = "Communication problem.";
+    public const string DEF_CONTEXT = "Communication problem.";
     
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="message">Exception message</param>
-    public CommunicationException(string message) : base(Context, message)
+    public CommunicationException(string message) : base(DEF_CONTEXT, message)
     {
     }
 
@@ -23,7 +23,7 @@
     /// </summary>
     /// <param name="message">Exception message</param>
     /// <param name="inner">Inner exception</param>
-    public CommunicationException(string message, System.Exception inner) : base(Context, message, inner)
+    public CommunicationException(string message, System.Exception inner) : base(DEF_CONTEXT, message, inner)
     {
     }
   }
