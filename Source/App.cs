@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO.Ports;
 using System.Windows.Forms;
 using Fluiid_cs.Source.Components;
 using Fluiid_cs.Source.Components.Logger;
@@ -49,31 +48,14 @@ namespace Fluiid_cs.Source
     /// <summary>
     /// Boot Application
     /// </summary>
-    public void Boot()
+    public void Run()
     {
       try
       {
-        // Boot Exception handler
-        exceptionHandler = new ExceptionHandler();
+        // Boot components
+        Boot();
 
-        // Boot Logger
-        logger = new FileLogger("log_" + DateTime.Now.ToString("yy-MM-dd") + ".txt");
-        logger.Debug("Logger loaded");
-
-        // Logger now ready --> give to ExceptionHandler
-        exceptionHandler.SetLogger(ref logger);
-
-        // Boot Configurator
-        configurator = new Configurator(this);
-        configurator.Boot();
-        logger.Debug("Configurator loaded");
-
-        // Boot communicator
-        communicator = new Communicator(configurator.Port, ref logger);
-        communicator.Boot();
-        logger.Debug("Communicator loaded");
-
-        main = new Forms.Main();
+        // Run application
         Application.Run(main);
       }
       catch (LoggerException ex)
@@ -88,6 +70,47 @@ namespace Fluiid_cs.Source
       {
         exceptionHandler.handleError(ex);
       }
+    }
+
+    /// <summary>
+    /// Boot components
+    /// </summary>
+    private void Boot()
+    {
+      // Boot Exception handler
+      exceptionHandler = new ExceptionHandler();
+
+      // Boot Logger
+      logger = new FileLogger("log_" + DateTime.Now.ToString("yy-MM-dd") + ".txt");
+      logger.Debug("Logger loaded");
+
+      // Logger now ready --> give to ExceptionHandler
+      exceptionHandler.SetLogger(ref logger);
+
+      // Boot Configurator
+      configurator = new Configurator(this);
+      configurator.Boot();
+      logger.Debug("Configurator loaded");
+
+      // Boot Communicator
+      communicator = new Communicator(configurator.Port, ref logger);
+      communicator.Boot();
+      logger.Debug("Communicator loaded");
+
+      // Init main window
+      main = new Forms.Main(this);
+      main.Init();
+    }
+
+    /// <summary>
+    /// Connect device
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public void ConnectDevice(object sender, EventArgs e)
+    {
+      Console.WriteLine("fakkala maske");
+      throw new System.Exception("bre");
     }
   }
 }

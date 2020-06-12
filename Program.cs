@@ -28,7 +28,7 @@ namespace Fluiid_cs
       
       // Boot app
       App app = new App();
-      app.Boot();
+      app.Run();
     }
 
     /// <summary>
