@@ -3,6 +3,7 @@ using System.IO.Ports;
 using System.Windows.Forms;
 using Fluiid_cs.Source.Components;
 using Fluiid_cs.Source.Components.Logger;
+using Fluiid_cs.Source.Exception;
 
 namespace Fluiid_cs.Source
 {
@@ -12,9 +13,14 @@ namespace Fluiid_cs.Source
   public class App
   {
     /// <summary>
+    /// Exception Handler
+    /// </summary>
+    private ExceptionHandler exceptionHandler;
+
+    /// <summary>
     /// Logger
     /// </summary>
-    private FileLogger logger;
+    private Logger logger;
 
     /// <summary>
     /// Configurator
@@ -47,17 +53,20 @@ namespace Fluiid_cs.Source
     {
       try
       {
+        // Boot Exception handler
+        exceptionHandler = new ExceptionHandler();
+
         // Boot Logger
         logger = new FileLogger();
         logger.LogFile = "log_" + DateTime.Now.ToString("yy-MM-dd") + ".txt";
         logger.Debug("Logger loaded");
 
+        // Logger now ready --> give to ExceptionHandler
+        exceptionHandler.SetLogger(ref logger);
+
         // Boot Configurator
         configurator = new Configurator(this);
-        if (configurator.Boot() is false)
-        {
-          throw new Exception("config problem");
-        }
+        configurator.Boot();
         logger.Debug("Configurator loaded");
 
         // Boot communicator
@@ -65,12 +74,18 @@ namespace Fluiid_cs.Source
 
         main = new Forms.Main();
         Application.Run(main);
-
       }
-      catch (Exception ex)
+      catch (LoggerException ex)
       {
-        MessageBox.Show(ex.Message);
-        Program.Exit();
+        exceptionHandler.handleLoggingError(ex);
+      }
+      catch (BaseException ex)
+      {
+        exceptionHandler.handleFatalError(ex);
+      }
+      catch (System.Exception ex)
+      {
+        exceptionHandler.handleError(ex);
       }
     }
   }

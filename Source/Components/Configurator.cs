@@ -100,8 +100,7 @@ namespace Fluiid_cs.Source
     /// <summary>
     /// Boot Component
     /// </summary>
-    /// <returns></returns>
-    public bool Boot()
+    public void Boot()
     {
       // Load config file
       configXML = XMLProcessor.Read(settingsFile);
@@ -115,8 +114,6 @@ namespace Fluiid_cs.Source
       // Load configs
       cfg.port = LoadConfigString(DEF.PORT.name, DEF.PORT.value);
       cfg.logLevel = LoadConfigInt(DEF.LOG.name, DEF.LOG.value);
-
-      return true;
     }
 
     /// <summary>
