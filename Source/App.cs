@@ -37,39 +37,12 @@ namespace Fluiid_cs.Source
     private Forms.Main main;
 
     /// <summary>
-    /// App Constructor
+    /// Constructor
     /// </summary>
     public App()
     {
       configurator = null;
       main = null;
-    }
-
-    /// <summary>
-    /// Boot Application
-    /// </summary>
-    public void Run()
-    {
-      try
-      {
-        // Boot components
-        Boot();
-
-        // Run application
-        Application.Run(main);
-      }
-      catch (LoggerException ex)
-      {
-        exceptionHandler.handleLoggingError(ex);
-      }
-      catch (BaseException ex)
-      {
-        exceptionHandler.handleFatalError(ex);
-      }
-      catch (System.Exception ex)
-      {
-        exceptionHandler.handleError(ex);
-      }
     }
 
     /// <summary>
@@ -100,6 +73,33 @@ namespace Fluiid_cs.Source
       // Init main window
       main = new Forms.Main(this);
       main.Init();
+    }
+
+    /// <summary>
+    /// Boot Application
+    /// </summary>
+    public void Run()
+    {
+      try
+      {
+        // Boot components
+        Boot();
+
+        // Run application
+        Application.Run(main);
+      }
+      catch (LoggerException ex)
+      {
+        exceptionHandler.handleLoggingError(ex);
+      }
+      catch (BaseException ex)
+      {
+        exceptionHandler.handleFatalError(ex);
+      }
+      catch (System.Exception ex)
+      {
+        exceptionHandler.handleError(ex);
+      }
     }
 
     /// <summary>
