@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO.Ports;
 using System.Windows.Forms;
-using Fluiid_cs.Source.Components;
 using Fluiid_cs.Source.Components.Logger;
 
 namespace Fluiid_cs.Source
@@ -12,19 +10,14 @@ namespace Fluiid_cs.Source
   public class App
   {
     /// <summary>
-    /// Logger
-    /// </summary>
-    private FileLogger logger;
-
-    /// <summary>
     /// Configurator
     /// </summary>
     private Configurator configurator;
 
     /// <summary>
-    /// Communicator
+    /// Logger
     /// </summary>
-    private Communicator communicator;
+    private FileLogger logger;
 
     /// <summary>
     /// Main Window
@@ -59,9 +52,6 @@ namespace Fluiid_cs.Source
           throw new Exception("config problem");
         }
         logger.Debug("Configurator loaded");
-
-        // Boot communicator
-        communicator = new Communicator(configurator.Port, ref logger);
 
         main = new Forms.Main();
         Application.Run(main);
