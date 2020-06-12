@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Fluiid_cs.Source.Exception;
 
 namespace Fluiid_cs.Source.Components
 {
@@ -37,6 +34,9 @@ namespace Fluiid_cs.Source.Components
       public const int ERROR = 2;
     }
 
+    /// <summary>
+    /// Serial Port details
+    /// </summary>
     public struct Port
     {
       public const int baudRate = 38400;
@@ -45,13 +45,20 @@ namespace Fluiid_cs.Source.Components
       public const StopBits stopBits = StopBits.One;
     }
 
-
+    /// <summary>
+    /// Serial port name (eg. COM1)
+    /// </summary>
     private string portName;
 
+    /// <summary>
+    /// Serial port
+    /// </summary>
     private SerialPort port;
-    private Logger.LoggerInterface logger;
 
-    private static string name { get; set; } = "Communicator";
+    /// <summary>
+    /// Logger
+    /// </summary>
+    private Logger.Logger logger;
 
     public event ConnectedEventHandler Connected;
 
@@ -65,43 +72,27 @@ namespace Fluiid_cs.Source.Components
 
     public delegate void ConnectionLostEventHandler();
 
-    
-
-    /// <summary>
-    /// Ready status
-    /// </summary>
-    public const string STATUS_READY = "READY";
-
-    /// <summary>
-    /// Busy status
-    /// </summary>
-    public const string STATUS_BUSY = "BUSY";
-
-    /// <summary>
-    /// Error status
-    /// </summary>
-    public const string STATUS_ERROR = "ERROR";
-
-
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="port">Serial port name</param>
     /// <param name="logger">Logger</param>
-    public Communicator(string port, ref Logger.LoggerInterface logger)
+    public Communicator(string port, ref Logger.Logger logger)
     {
       portName = port;
       this.logger = logger;
     }
 
-    public bool Boot()
+    /// <summary>
+    /// Boot communicator
+    /// </summary>
+    public void Boot()
     {
       port = new SerialPort(portName, Port.baudRate, Port.parity, Port.dataBits, Port.stopBits);
     }
 
-
     /// <summary>
-    /// Opens the serial port
+    /// Open the serial port
     /// </summary>
     public void Connect()
     {
@@ -111,31 +102,16 @@ namespace Fluiid_cs.Source.Components
         if (port.IsOpen == true)
         {
           Connected?.Invoke();
+        } else
+        {
+          Disconnected?.Invoke();
         }
       }
-      catch (UnauthorizedAccessException ex)
+      catch (System.Exception ex)
       {
-        iSpit.ErrorHandling.Critical(ref logger, "Access is denied to the port.", name);
-      }
-      catch (ArgumentException ex)
-      {
-        iSpit.ErrorHandling.Critical(ref logger, @"The port name does not begin with 'COM'. - or -The file type of the port is not
-    '     supported.", name);
-      }
-      catch (System.IO.IOException ex)
-      {
-        iSpit.ErrorHandling.Critical(ref logger, "The port is in an invalid state.", name);
-      }
-      catch (InvalidOperationException ex)
-      {
-        iSpit.ErrorHandling.Critical(ref logger, "The specified port is already open.", name);
-      }
-      catch (Exception ex)
-      {
-        iSpit.ErrorHandling.Critical(ref logger, ex.Message, name);
+        throw new CommunicationException("Port opening failed. Please check port name.", ex);
       }
     }
-
 
     /// <summary>
     /// Closes the serial port
@@ -156,49 +132,42 @@ namespace Fluiid_cs.Source.Components
           Disconnected?.Invoke();
         }
       }
-      catch (System.IO.IOException ex)
+      catch (System.Exception ex)
       {
-        logger.Critical("The port is in an invalid state.", name);
-      }
-      catch (Exception ex)
-      {
-        logger.Critical(ex.Message, name);
+        throw new CommunicationException("Port closing failed.", ex);
       }
     }
-
 
     /// <summary>
     /// Send a command to the device
     /// </summary>
-    /// <param name="command"></param>
+    /// <param name="command">Command to send</param>
     public bool Send(string command)
     {
       try
       {
-        port.Write(COMMAND_START_CHAR + DEVICE_ADDR + command + Constants.vbCr);
-        logger.Internal("S: " + command);
-        Thread.Sleep(ResponseTime);
+        port.Write(COMMAND_START_CHAR + DEVICE_ADDR + command + Environment.NewLine);
+        logger.Debug("S: " + command);
+        System.Threading.Thread.Sleep(ResponseTime);
         return true;
       }
-      catch (InvalidOperationException ex)
+      catch (System.Exception ex)
       {
         ConnectionLost?.Invoke();
-        logger.Critical("The port is not open.", name);
-        return false;
-      }
-      catch (Exception ex)
-      {
-        logger.Critical(ex.Message, name);
-        return false;
+        throw new CommunicationException("Can not send command to device.", ex);
       }
     }
+
     /// <summary>
     /// Reads answer from the input buffer
     /// </summary>
     /// <returns>The answer string</returns>
     public string Read()
     {
+      // Answer string
       string answer = "";
+
+      // Received character
       int received;
       try
       {
@@ -219,136 +188,124 @@ namespace Fluiid_cs.Source.Components
             break;
           }
 
-          answer += Conversions.ToString((char)received);
+          answer += (char)received;
         }
 
         // Remove answer start character and master address
-        if (answer.Length >= 2 && Conversions.ToString(answer[0]) == "/" & Conversions.ToString(answer[1]) == "0")
+        if (answer.Length >= 2 && answer[0].ToString() == "/" && answer[1].ToString() == "0")
         {
-          answer = Strings.Mid(answer, 3);
+          answer=answer.Substring(2);
         }
 
-        logger.Internal("R: " + answer);
+        logger.Debug("R: " + answer);
         return answer;
       }
-      catch (InvalidOperationException ex)
+      catch (System.Exception ex)
       {
         ConnectionLost?.Invoke();
-        logger.Critical("The specified port is not open.", name);
-        return STATUS_ERROR;
-      }
-      catch (TimeoutException ex)
-      {
-        ConnectionLost?.Invoke();
-        logger.Critical("The operation did not complete before the time-out period ended.", name);
-        return STATUS_ERROR;
-      }
-      catch (System.IO.IOException ex)
-      {
-        ConnectionLost?.Invoke();
-        logger.Critical("The port is in an invalid state..", name);
-        return STATUS_ERROR;
-      }
-      catch (Exception ex)
-      {
-        logger.Critical(ex.Message, name);
-        return STATUS_ERROR;
+        throw new CommunicationException("Can not read from device", ex);
       }
     }
+
     /// <summary>
     /// Checks if device is ready to accept commands
     /// </summary>
-    /// <returns>
-    /// True if ready
-    /// False if busy
-    /// </returns>
-    public string IsReady()
+    /// <returns>Status code</returns>
+    public int IsReady()
     {
+      // Send query command
       if (Send("Q") == false)
       {
-        return STATUS_ERROR;
+        // Sending failed --> Error
+        return Status.ERROR;
       }
 
+      // Read answer from device
       string answer = Read();
-      if (answer == "`")
+
+      // Parse answer
+      switch (answer)
       {
-        logger.Internal("Device ready");
-        return STATUS_READY;
-      }
-      else if (answer == "@")
-      {
-        logger.Internal("Device busy");
-        return STATUS_BUSY;
-      }
-      else
-      {
-        return STATUS_ERROR;
+        case "`":
+          logger.Debug("Device ready");
+          return Status.READY;
+        case "@":
+          logger.Debug("Device busy");
+          return Status.BUSY;
+        default:
+          return Status.ERROR;
       }
     }
+
     /// <summary>
     /// Check if device received command
     /// </summary>
-    /// <returns>
-    /// True if received
-    /// False if not
-    /// </returns>
-    public string Ack()
+    /// <returns>Status code</returns>
+    public int Ack()
     {
+      // Read answer
       string answer = Read();
-      if (answer == "@")
+
+      // Parse answer
+      switch (answer)
       {
-        logger.Internal("CMD received");
-        return STATUS_BUSY;
-      }
-      else if (answer == "`")
-      {
-        return STATUS_READY;
-      }
-      else
-      {
-        return STATUS_ERROR;
+        case "`":
+          return Status.READY;
+        case "@":
+          logger.Debug("CMD received");
+          return Status.BUSY;
+        default:
+          return Status.ERROR;
       }
     }
+
     /// <summary>
     /// Suspends script until device is ready
     /// </summary>
-    public string WaitForDevice()
+    public int WaitForDevice()
     {
-      string device;
+      int status;
       do
       {
-        device = IsReady();
-        if ((device ?? "") == STATUS_READY)
+        // Check status
+        status = IsReady();
+
+        // Device not busy --> return status
+        if (status == Status.READY || status==Status.ERROR)
         {
-          return STATUS_READY;
-        }
-        else if ((device ?? "") == STATUS_ERROR)
-        {
-          return STATUS_ERROR;
+          return status;
         }
 
-        Thread.Sleep(800);
+        // Device busy --> wait and ask again
+        System.Threading.Thread.Sleep(800);
       }
       while (true);
     }
 
+    /// <summary>
+    /// Send a report command
+    /// </summary>
+    /// <param name="command">Report command</param>
+    /// <returns>Answer from device</returns>
     public string Report(string command)
     {
+      // Send command
       if (Send(command) == false)
       {
-        return STATUS_ERROR;
+        return "Error";
       }
 
+      // Read answer
       string answer = Read();
-      if (answer.Length >= 2)
+
+      // Remove answer start character and master address
+      if (answer.Length >= 2 && answer[0].ToString() == "/" && answer[1].ToString() == "0")
       {
-        answer = Strings.Mid(answer, 2);
-        return answer;
+        return answer.Substring(2);
       }
-      else
-      {
-        return "";
-      }
+
+      // Not recognized answer
+      return "";
     }
   }
 }
