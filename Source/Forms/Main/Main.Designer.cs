@@ -141,6 +141,7 @@
       this.TextBoxCmd.Name = "TextBoxCmd";
       this.TextBoxCmd.Size = new System.Drawing.Size(116, 20);
       this.TextBoxCmd.TabIndex = 15;
+      this.TextBoxCmd.Visible = false;
       // 
       // label2
       // 

@@ -84,6 +84,7 @@ namespace Fluiid.Source.Forms
       ButtonInit.Enabled = false;
       ButtonWash.Enabled = false;
       ButtonSend.Enabled = false;
+      TextBoxCmd.Enabled = false;
       UseWaitCursor = true;
     }
 
@@ -97,6 +98,7 @@ namespace Fluiid.Source.Forms
       ButtonInit.Enabled = true;
       ButtonWash.Enabled = true;
       ButtonSend.Enabled = true;
+      TextBoxCmd.Enabled = true;
       UseWaitCursor = false;
     }
 
@@ -113,6 +115,7 @@ namespace Fluiid.Source.Forms
       ButtonInit.Show();
       ButtonWash.Show();
       ButtonSend.Show();
+      TextBoxCmd.Show();
     }
 
     /// <summary>
@@ -128,6 +131,7 @@ namespace Fluiid.Source.Forms
       ButtonInit.Hide();
       ButtonWash.Hide();
       ButtonSend.Hide();
+      TextBoxCmd.Hide();
     }
   }
 }
