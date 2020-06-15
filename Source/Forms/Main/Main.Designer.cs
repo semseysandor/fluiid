@@ -36,23 +36,17 @@
       this.ButtonDisconnect = new System.Windows.Forms.Button();
       this.ButtonConnect = new System.Windows.Forms.Button();
       this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
-      this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.SettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.SelectCOMPortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.LoggingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.LoggingFull = new System.Windows.Forms.ToolStripMenuItem();
-      this.LoggingStatus = new System.Windows.Forms.ToolStripMenuItem();
-      this.LoggingCritical = new System.Windows.Forms.ToolStripMenuItem();
-      this.LoggingNone = new System.Windows.Forms.ToolStripMenuItem();
+      this.Settings = new System.Windows.Forms.ToolStripMenuItem();
       this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.ButtonSend = new System.Windows.Forms.Button();
       this.TextBoxCmd = new System.Windows.Forms.TextBox();
+      this.label2 = new System.Windows.Forms.Label();
       this.MenuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
       // ButtonWash
       // 
-      this.ButtonWash.Location = new System.Drawing.Point(334, 62);
+      this.ButtonWash.Location = new System.Drawing.Point(249, 59);
       this.ButtonWash.Name = "ButtonWash";
       this.ButtonWash.Size = new System.Drawing.Size(74, 24);
       this.ButtonWash.TabIndex = 13;
@@ -62,9 +56,9 @@
       // 
       // ButtonInit
       // 
-      this.ButtonInit.Location = new System.Drawing.Point(233, 62);
+      this.ButtonInit.Location = new System.Drawing.Point(249, 29);
       this.ButtonInit.Name = "ButtonInit";
-      this.ButtonInit.Size = new System.Drawing.Size(95, 24);
+      this.ButtonInit.Size = new System.Drawing.Size(74, 24);
       this.ButtonInit.TabIndex = 12;
       this.ButtonInit.Text = "Init";
       this.ButtonInit.UseVisualStyleBackColor = true;
@@ -73,16 +67,16 @@
       // Label1
       // 
       this.Label1.AutoSize = true;
-      this.Label1.Location = new System.Drawing.Point(21, 68);
+      this.Label1.Location = new System.Drawing.Point(10, 35);
       this.Label1.Name = "Label1";
-      this.Label1.Size = new System.Drawing.Size(30, 13);
+      this.Label1.Size = new System.Drawing.Size(44, 13);
       this.Label1.TabIndex = 11;
-      this.Label1.Text = "iSpit:";
+      this.Label1.Text = "Device:";
       // 
       // TextConnection
       // 
       this.TextConnection.AutoSize = true;
-      this.TextConnection.Location = new System.Drawing.Point(57, 68);
+      this.TextConnection.Location = new System.Drawing.Point(10, 59);
       this.TextConnection.Name = "TextConnection";
       this.TextConnection.Size = new System.Drawing.Size(73, 13);
       this.TextConnection.TabIndex = 10;
@@ -90,7 +84,7 @@
       // 
       // ButtonDisconnect
       // 
-      this.ButtonDisconnect.Location = new System.Drawing.Point(136, 92);
+      this.ButtonDisconnect.Location = new System.Drawing.Point(112, 59);
       this.ButtonDisconnect.Name = "ButtonDisconnect";
       this.ButtonDisconnect.Size = new System.Drawing.Size(87, 24);
       this.ButtonDisconnect.TabIndex = 9;
@@ -100,7 +94,7 @@
       // 
       // ButtonConnect
       // 
-      this.ButtonConnect.Location = new System.Drawing.Point(136, 62);
+      this.ButtonConnect.Location = new System.Drawing.Point(112, 29);
       this.ButtonConnect.Name = "ButtonConnect";
       this.ButtonConnect.Size = new System.Drawing.Size(73, 24);
       this.ButtonConnect.TabIndex = 8;
@@ -110,74 +104,19 @@
       // MenuStrip1
       // 
       this.MenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.FileToolStripMenuItem,
-            this.SettingsToolStripMenuItem,
+            this.Settings,
             this.AboutToolStripMenuItem});
       this.MenuStrip1.Location = new System.Drawing.Point(0, 0);
       this.MenuStrip1.Name = "MenuStrip1";
-      this.MenuStrip1.Size = new System.Drawing.Size(800, 24);
+      this.MenuStrip1.Size = new System.Drawing.Size(337, 24);
       this.MenuStrip1.TabIndex = 14;
       this.MenuStrip1.Text = "MenuStrip1";
       // 
-      // FileToolStripMenuItem
+      // Settings
       // 
-      this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
-      this.FileToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
-      this.FileToolStripMenuItem.Text = "New job...";
-      // 
-      // SettingsToolStripMenuItem
-      // 
-      this.SettingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SelectCOMPortToolStripMenuItem,
-            this.LoggingToolStripMenuItem});
-      this.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem";
-      this.SettingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-      this.SettingsToolStripMenuItem.Text = "Settings";
-      // 
-      // SelectCOMPortToolStripMenuItem
-      // 
-      this.SelectCOMPortToolStripMenuItem.Name = "SelectCOMPortToolStripMenuItem";
-      this.SelectCOMPortToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-      this.SelectCOMPortToolStripMenuItem.Text = "Select COM port...";
-      // 
-      // LoggingToolStripMenuItem
-      // 
-      this.LoggingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.LoggingFull,
-            this.LoggingStatus,
-            this.LoggingCritical,
-            this.LoggingNone});
-      this.LoggingToolStripMenuItem.Name = "LoggingToolStripMenuItem";
-      this.LoggingToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-      this.LoggingToolStripMenuItem.Text = "Logging";
-      // 
-      // LoggingFull
-      // 
-      this.LoggingFull.Name = "LoggingFull";
-      this.LoggingFull.Size = new System.Drawing.Size(111, 22);
-      this.LoggingFull.Tag = "0";
-      this.LoggingFull.Text = "Full";
-      // 
-      // LoggingStatus
-      // 
-      this.LoggingStatus.Name = "LoggingStatus";
-      this.LoggingStatus.Size = new System.Drawing.Size(111, 22);
-      this.LoggingStatus.Tag = "1";
-      this.LoggingStatus.Text = "Status";
-      // 
-      // LoggingCritical
-      // 
-      this.LoggingCritical.Name = "LoggingCritical";
-      this.LoggingCritical.Size = new System.Drawing.Size(111, 22);
-      this.LoggingCritical.Tag = "2";
-      this.LoggingCritical.Text = "Critical";
-      // 
-      // LoggingNone
-      // 
-      this.LoggingNone.Name = "LoggingNone";
-      this.LoggingNone.Size = new System.Drawing.Size(111, 22);
-      this.LoggingNone.Tag = "3";
-      this.LoggingNone.Text = "None";
+      this.Settings.Name = "Settings";
+      this.Settings.Size = new System.Drawing.Size(61, 20);
+      this.Settings.Text = "Settings";
       // 
       // AboutToolStripMenuItem
       // 
@@ -188,7 +127,7 @@
       // 
       // ButtonSend
       // 
-      this.ButtonSend.Location = new System.Drawing.Point(187, 267);
+      this.ButtonSend.Location = new System.Drawing.Point(234, 110);
       this.ButtonSend.Name = "ButtonSend";
       this.ButtonSend.Size = new System.Drawing.Size(89, 36);
       this.ButtonSend.TabIndex = 16;
@@ -198,16 +137,29 @@
       // 
       // TextBoxCmd
       // 
-      this.TextBoxCmd.Location = new System.Drawing.Point(33, 276);
+      this.TextBoxCmd.Location = new System.Drawing.Point(112, 119);
       this.TextBoxCmd.Name = "TextBoxCmd";
-      this.TextBoxCmd.Size = new System.Drawing.Size(135, 20);
+      this.TextBoxCmd.Size = new System.Drawing.Size(116, 20);
       this.TextBoxCmd.TabIndex = 15;
+      // 
+      // label2
+      // 
+      this.label2.AutoSize = true;
+      this.label2.Location = new System.Drawing.Point(10, 122);
+      this.label2.Name = "label2";
+      this.label2.Size = new System.Drawing.Size(78, 13);
+      this.label2.TabIndex = 17;
+      this.label2.Text = "Raw command";
       // 
       // Main
       // 
+      this.AcceptButton = this.ButtonSend;
+      this.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(800, 450);
+      this.AutoSize = true;
+      this.ClientSize = new System.Drawing.Size(337, 162);
+      this.Controls.Add(this.label2);
       this.Controls.Add(this.ButtonSend);
       this.Controls.Add(this.TextBoxCmd);
       this.Controls.Add(this.MenuStrip1);
@@ -217,6 +169,7 @@
       this.Controls.Add(this.TextConnection);
       this.Controls.Add(this.ButtonDisconnect);
       this.Controls.Add(this.ButtonConnect);
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.Name = "Main";
       this.Text = "Main";
@@ -236,16 +189,10 @@
 		internal System.Windows.Forms.Button ButtonDisconnect;
 		internal System.Windows.Forms.Button ButtonConnect;
 		internal System.Windows.Forms.MenuStrip MenuStrip1;
-		internal System.Windows.Forms.ToolStripMenuItem FileToolStripMenuItem;
-		internal System.Windows.Forms.ToolStripMenuItem SettingsToolStripMenuItem;
-		internal System.Windows.Forms.ToolStripMenuItem SelectCOMPortToolStripMenuItem;
-		internal System.Windows.Forms.ToolStripMenuItem LoggingToolStripMenuItem;
-		internal System.Windows.Forms.ToolStripMenuItem LoggingFull;
-		internal System.Windows.Forms.ToolStripMenuItem LoggingStatus;
-		internal System.Windows.Forms.ToolStripMenuItem LoggingCritical;
-		internal System.Windows.Forms.ToolStripMenuItem LoggingNone;
+		internal System.Windows.Forms.ToolStripMenuItem Settings;
 		internal System.Windows.Forms.ToolStripMenuItem AboutToolStripMenuItem;
 		internal System.Windows.Forms.Button ButtonSend;
 		internal System.Windows.Forms.TextBox TextBoxCmd;
-	}
+    private System.Windows.Forms.Label label2;
+  }
 }

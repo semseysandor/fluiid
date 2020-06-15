@@ -31,7 +31,7 @@
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
       this.PictureBox1 = new System.Windows.Forms.PictureBox();
       this.TextInfo = new System.Windows.Forms.Label();
-      this.BtnClose = new System.Windows.Forms.Button();
+      this.Close = new System.Windows.Forms.Button();
       ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
       this.SuspendLayout();
       // 
@@ -54,30 +54,35 @@
       this.TextInfo.TabIndex = 2;
       this.TextInfo.Text = "info";
       // 
-      // BtnClose
+      // Close
       // 
-      this.BtnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-      this.BtnClose.Location = new System.Drawing.Point(237, 147);
-      this.BtnClose.Name = "BtnClose";
-      this.BtnClose.Size = new System.Drawing.Size(82, 32);
-      this.BtnClose.TabIndex = 3;
-      this.BtnClose.Text = "Cool!";
-      this.BtnClose.UseVisualStyleBackColor = true;
-      this.BtnClose.Click += new System.EventHandler(this.BtnClose_Click);
+      this.Close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+      this.Close.Location = new System.Drawing.Point(237, 147);
+      this.Close.Name = "Close";
+      this.Close.Size = new System.Drawing.Size(82, 32);
+      this.Close.TabIndex = 3;
+      this.Close.Text = "Cool!";
+      this.Close.UseVisualStyleBackColor = true;
       // 
       // About
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-      this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.AcceptButton = this.Close;
+      this.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
+      this.AllowDrop = true;
+      this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+      this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+      this.AutoSize = true;
       this.ClientSize = new System.Drawing.Size(342, 204);
-      this.Controls.Add(this.BtnClose);
+      this.Controls.Add(this.Close);
       this.Controls.Add(this.TextInfo);
       this.Controls.Add(this.PictureBox1);
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+      this.MaximizeBox = false;
+      this.MinimizeBox = false;
       this.Name = "About";
-      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
       this.Text = "About";
-      this.Load += new System.EventHandler(this.Loader);
       ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
@@ -88,6 +93,6 @@
 
     internal System.Windows.Forms.PictureBox PictureBox1;
     internal System.Windows.Forms.Label TextInfo;
-    internal System.Windows.Forms.Button BtnClose;
+    internal System.Windows.Forms.Button Close;
   }
 }

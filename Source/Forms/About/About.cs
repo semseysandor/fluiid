@@ -17,11 +17,25 @@ namespace Fluiid.Source.Forms
     }
 
     /// <summary>
-    /// Close button
+    /// Init form components
+    /// </summary>
+    public void Init()
+    {
+      // Add event handlers
+
+      // Load form contents
+      this.Load += new EventHandler(Loader);
+
+      // Close button
+      Close.Click += new EventHandler(onClickClose);
+    }
+
+    /// <summary>
+    /// Close form
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void BtnClose_Click(object sender, EventArgs e)
+    private void onClickClose(object sender, EventArgs e)
     {
       Close();
     }
@@ -33,6 +47,7 @@ namespace Fluiid.Source.Forms
     /// <param name="e"></param>
     private void Loader(object sender, EventArgs e)
     {
+      Console.WriteLine("joco");
       TextInfo.Text =
       "Fluiid v0.6" + Environment.NewLine +
       "Developed by:" + Environment.NewLine +

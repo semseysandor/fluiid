@@ -19,11 +19,6 @@ namespace Fluiid.Source.Forms
     private MainUIWorker ui;
 
     /// <summary>
-    /// About modal
-    /// </summary>
-    private Form about;
-
-    /// <summary>
     /// Constructor
     /// </summary>
     public Main(App app)
@@ -49,8 +44,14 @@ namespace Fluiid.Source.Forms
     /// </summary>
     private void AddEventHandlers()
     {
-      ButtonConnect.Click += new EventHandler(app.ConnectDevice);
+      // About
       AboutToolStripMenuItem.Click += new EventHandler(openAbout);
+
+      // Settings
+      Settings.Click += new EventHandler(openSettings);
+
+      // Connect device
+      ButtonConnect.Click += new EventHandler(app.ConnectDevice);
     }
 
     /// <summary>
@@ -60,9 +61,27 @@ namespace Fluiid.Source.Forms
     /// <param name="e"></param>
     private void openAbout(object sender, EventArgs e)
     {
-      about = new About();
-      about.StartPosition = FormStartPosition.CenterParent;
+      About about = new About
+      {
+        StartPosition = FormStartPosition.CenterParent
+      };
+      about.Init();
       about.ShowDialog(this);
+    }
+
+    /// <summary>
+    /// Open Settings
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void openSettings(object sender, EventArgs e)
+    {
+      Settings.Settings settings = new Settings.Settings
+      {
+        StartPosition = FormStartPosition.CenterParent
+      };
+      settings.Init();
+      settings.ShowDialog(this);
     }
   }
 }
