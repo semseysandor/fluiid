@@ -338,9 +338,3 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
-
-# Solution file
-*.sln
-
-# Project Files
-*.csproj
