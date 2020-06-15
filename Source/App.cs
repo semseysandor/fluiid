@@ -76,6 +76,18 @@ namespace Fluiid.Source
     }
 
     /// <summary>
+    /// Add Event handlers
+    /// </summary>
+    private void AddEventHandlers()
+    {
+      // Device connected
+      communicator.Connected += new EventHandler(main.DeviceConnected);
+
+      // Device DisConnected
+      communicator.Disconnected += new EventHandler(main.DeviceDisConnected);
+    }
+
+    /// <summary>
     /// Boot Application
     /// </summary>
     public void Run()
@@ -85,6 +97,9 @@ namespace Fluiid.Source
         // Boot components
         Boot();
 
+        // Event handlers
+        AddEventHandlers();
+        
         // Run application
         Application.Run(main);
       }
@@ -105,12 +120,9 @@ namespace Fluiid.Source
     /// <summary>
     /// Connect device
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    public void ConnectDevice(object sender, EventArgs e)
+    public void DeviceConnect()
     {
-      Console.WriteLine("fakkala maske");
-      throw new System.Exception("bre");
+      communicator.Connect();
     }
   }
 }

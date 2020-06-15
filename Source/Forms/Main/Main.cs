@@ -57,7 +57,7 @@ namespace Fluiid.Source.Forms
       Settings.Click += new EventHandler(openSettings);
 
       // Connect device
-      ButtonConnect.Click += new EventHandler(app.ConnectDevice);
+      ButtonConnect.Click += new EventHandler(this.ConnectDevice);
     }
 
     /// <summary>
@@ -86,6 +86,42 @@ namespace Fluiid.Source.Forms
       settings.StartPosition = FormStartPosition.CenterParent;
       settings.Init();
       settings.ShowDialog(this);
+    }
+
+    /// <summary>
+    /// Connect device
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ConnectDevice(object sender, EventArgs e)
+    {
+      // Set application UI to busy
+      ui.SetBusy();
+      app.DeviceConnect();
+    }
+
+    /// <summary>
+    /// Device Connected
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public void DeviceConnected(object sender, EventArgs e)
+    {
+      // Set application UI
+      ui.ClearBusy();
+      ui.Connected();
+    }
+
+    /// <summary>
+    /// Device disconnected
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public void DeviceDisConnected(object sender, EventArgs e)
+    {
+      // Set application UI
+      ui.ClearBusy();
+      ui.DisConnected();
     }
   }
 }

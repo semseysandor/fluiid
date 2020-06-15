@@ -42,5 +42,24 @@
       form.ButtonSend.Enabled = true;
       form.UseWaitCursor = false;
     }
+
+    public void Connected()
+    {
+      form.TextConnection.Text = "Connected";
+      form.ButtonConnect.Hide();
+      form.ButtonDisconnect.Show();
+      form.ButtonInit.Show();
+      form.ButtonWash.Show();
+      form.ButtonSend.Show();
+    }
+    public void DisConnected()
+    {
+      form.TextConnection.Text = "Disconnected";
+      form.ButtonConnect.Show();
+      form.ButtonDisconnect.Hide();
+      form.ButtonInit.Hide();
+      form.ButtonWash.Hide();
+      form.ButtonSend.Hide();
+    }
   }
 }
