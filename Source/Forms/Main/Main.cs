@@ -19,11 +19,6 @@ namespace Fluiid.Source.Forms
     private Configurator configurator;
 
     /// <summary>
-    /// UI worker
-    /// </summary>
-    private MainUIWorker ui;
-
-    /// <summary>
     /// Constructor
     /// </summary>
     public Main(App app, Configurator configurator)
@@ -38,18 +33,8 @@ namespace Fluiid.Source.Forms
     /// </summary>
     public void Init()
     {
-      // Create UI worker
-      ui = new MainUIWorker(this);
+      // Add Event handlers
 
-      // Event handlers
-      AddEventHandlers();
-    }
-
-    /// <summary>
-    /// Add event handlers
-    /// </summary>
-    private void AddEventHandlers()
-    {
       // About
       AboutToolStripMenuItem.Click += new EventHandler(openAbout);
 
@@ -57,10 +42,10 @@ namespace Fluiid.Source.Forms
       Settings.Click += new EventHandler(openSettings);
 
       // Connect device
-      ButtonConnect.Click += new EventHandler(this.ConnectDevice);
+      ButtonConnect.Click += new EventHandler(app.DeviceConnect);
 
       // Disconnect device
-      ButtonDisconnect.Click += new EventHandler(this.DisConnectDevice);
+      ButtonDisconnect.Click += new EventHandler(app.DeviceDisConnect);
     }
 
     /// <summary>
@@ -70,10 +55,8 @@ namespace Fluiid.Source.Forms
     /// <param name="e"></param>
     private void openAbout(object sender, EventArgs e)
     {
-      About about = new About
-      {
-        StartPosition = FormStartPosition.CenterParent
-      };
+      About about = new About();
+      about.StartPosition = FormStartPosition.CenterParent;
       about.Init();
       about.ShowDialog(this);
     }
@@ -92,27 +75,29 @@ namespace Fluiid.Source.Forms
     }
 
     /// <summary>
-    /// Connect device
+    /// Set Main App window busy
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void ConnectDevice(object sender, EventArgs e)
+    public void AppBusy()
     {
-      // Set application UI to busy
-      ui.SetBusy();
-      app.DeviceConnect();
+      ButtonConnect.Enabled = false;
+      ButtonDisconnect.Enabled = false;
+      ButtonInit.Enabled = false;
+      ButtonWash.Enabled = false;
+      ButtonSend.Enabled = false;
+      UseWaitCursor = true;
     }
 
     /// <summary>
-    /// Disconnect device
+    /// Set Main App window ready
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void DisConnectDevice(object sender, EventArgs e)
+    public void AppReady()
     {
-      // Set application UI to busy
-      ui.SetBusy();
-      app.DeviceDisConnect();
+      ButtonConnect.Enabled = true;
+      ButtonDisconnect.Enabled = true;
+      ButtonInit.Enabled = true;
+      ButtonWash.Enabled = true;
+      ButtonSend.Enabled = true;
+      UseWaitCursor = false;
     }
 
     /// <summary>
@@ -120,11 +105,14 @@ namespace Fluiid.Source.Forms
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    public void DeviceConnected(object sender, EventArgs e)
+    public void DeviceConnected()
     {
-      // Set application UI
-      ui.ClearBusy();
-      ui.Connected();
+      TextConnection.Text = "Connected";
+      ButtonConnect.Hide();
+      ButtonDisconnect.Show();
+      ButtonInit.Show();
+      ButtonWash.Show();
+      ButtonSend.Show();
     }
 
     /// <summary>
@@ -132,11 +120,14 @@ namespace Fluiid.Source.Forms
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    public void DeviceDisConnected(object sender, EventArgs e)
+    public void DeviceDisConnected()
     {
-      // Set application UI
-      ui.ClearBusy();
-      ui.DisConnected();
+      TextConnection.Text = "Disconnected";
+      ButtonConnect.Show();
+      ButtonDisconnect.Hide();
+      ButtonInit.Hide();
+      ButtonWash.Hide();
+      ButtonSend.Hide();
     }
   }
 }
