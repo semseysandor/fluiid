@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO.Ports;
-using Fluiid_cs.Source.Exception;
+using Fluiid.Source.Exception;
 
-namespace Fluiid_cs.Source.Components
+namespace Fluiid.Source.Components
 {
   /// <summary>
   /// Handles serial port communication

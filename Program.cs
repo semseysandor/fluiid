@@ -1,8 +1,8 @@
-﻿using Fluiid_cs.Source;
+﻿using Fluiid.Source;
 using System;
 using System.Windows.Forms;
 
-namespace Fluiid_cs
+namespace Fluiid
 {
   /// <summary>
   /// Program Runner

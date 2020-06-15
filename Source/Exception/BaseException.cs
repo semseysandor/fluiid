@@ -1,4 +1,4 @@
-﻿namespace Fluiid_cs.Source.Exception
+﻿namespace Fluiid.Source.Exception
 {
   /// <summary>
   /// Base Exception

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Fluiid_cs.Properties
+namespace Fluiid.Properties
 {
 
 

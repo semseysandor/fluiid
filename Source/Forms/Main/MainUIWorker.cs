@@ -1,4 +1,4 @@
-﻿namespace Fluiid_cs.Source.Forms
+﻿namespace Fluiid.Source.Forms
 {
   /// <summary>
   /// UI worker for main window

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
-using Fluiid_cs.Source.Components;
-using Fluiid_cs.Source.Components.Logger;
-using Fluiid_cs.Source.Exception;
+using Fluiid.Source.Components;
+using Fluiid.Source.Components.Logger;
+using Fluiid.Source.Exception;
 
-namespace Fluiid_cs.Source
+namespace Fluiid.Source
 {
   /// <summary>
   /// Application

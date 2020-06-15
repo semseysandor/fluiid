@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fluiid_cs.Source.Components.Logger
+namespace Fluiid.Source.Components.Logger
 {
   /// <summary>
   /// Logging level

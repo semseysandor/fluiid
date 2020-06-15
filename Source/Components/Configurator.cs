@@ -1,9 +1,9 @@
-﻿using Fluiid_cs.Source.Utility;
+﻿using Fluiid.Source.Utility;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace Fluiid_cs.Source
+namespace Fluiid.Source
 {
   /// <summary>
   /// Configurator

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Fluiid_cs.Source.Forms
+namespace Fluiid.Source.Forms
 {
   /// <summary>
   /// Main window

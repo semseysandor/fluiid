@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
-using Fluiid_cs.Source.Components.Logger;
+using Fluiid.Source.Components.Logger;
 
-namespace Fluiid_cs.Source.Exception
+namespace Fluiid.Source.Exception
 {
   /// <summary>
   /// Exception Handler

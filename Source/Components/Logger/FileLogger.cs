@@ -1,7 +1,7 @@
 ﻿using System;
-using Fluiid_cs.Source.Exception;
+using Fluiid.Source.Exception;
 
-namespace Fluiid_cs.Source.Components.Logger
+namespace Fluiid.Source.Components.Logger
 {
   /// <summary>
   /// Write Log to File
