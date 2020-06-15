@@ -14,6 +14,11 @@ namespace Fluiid.Source.Forms
     private App app;
 
     /// <summary>
+    /// Configurator
+    /// </summary>
+    private Configurator configurator;
+
+    /// <summary>
     /// UI worker
     /// </summary>
     private MainUIWorker ui;
@@ -21,10 +26,11 @@ namespace Fluiid.Source.Forms
     /// <summary>
     /// Constructor
     /// </summary>
-    public Main(App app)
+    public Main(App app, Configurator configurator)
     {
       InitializeComponent();
-      this.app = app;    
+      this.app = app;
+      this.configurator = configurator;
     }
 
     /// <summary>
@@ -76,10 +82,8 @@ namespace Fluiid.Source.Forms
     /// <param name="e"></param>
     private void openSettings(object sender, EventArgs e)
     {
-      Settings.Settings settings = new Settings.Settings
-      {
-        StartPosition = FormStartPosition.CenterParent
-      };
+      Settings.Settings settings = new Settings.Settings(configurator);
+      settings.StartPosition = FormStartPosition.CenterParent;
       settings.Init();
       settings.ShowDialog(this);
     }

@@ -71,7 +71,7 @@ namespace Fluiid.Source
       logger.Debug("Communicator loaded");
 
       // Init main window
-      main = new Forms.Main(this);
+      main = new Forms.Main(this, configurator);
       main.Init();
     }
 

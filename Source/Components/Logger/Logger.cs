@@ -10,7 +10,7 @@ namespace Fluiid.Source.Components.Logger
     /// <summary>
     /// Actual logging level
     /// </summary>
-    public int LogLevel { get; set; } = LogLevels.All;
+    public int LogLevel { get; set; } = LogLevels.Debug;
 
     /// <summary>
     /// Logs a critical event

@@ -29,42 +29,30 @@
     private void InitializeComponent()
     {
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
-      this.comboBox1 = new System.Windows.Forms.ComboBox();
-      this.comboBox2 = new System.Windows.Forms.ComboBox();
+      this.ports = new System.Windows.Forms.ComboBox();
+      this.logging = new System.Windows.Forms.ComboBox();
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
       this.close = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
-      // comboBox1
+      // ports
       // 
-      this.comboBox1.FormattingEnabled = true;
-      this.comboBox1.Items.AddRange(new object[] {
-            "COM1",
-            "COM2",
-            "COM3",
-            "COM4",
-            "COM5",
-            "COM6",
-            "COM7",
-            "COM8"});
-      this.comboBox1.Location = new System.Drawing.Point(88, 6);
-      this.comboBox1.Name = "comboBox1";
-      this.comboBox1.Size = new System.Drawing.Size(58, 21);
-      this.comboBox1.TabIndex = 0;
+      this.ports.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.ports.FormattingEnabled = true;
+      this.ports.Location = new System.Drawing.Point(88, 6);
+      this.ports.Name = "ports";
+      this.ports.Size = new System.Drawing.Size(78, 21);
+      this.ports.TabIndex = 0;
       // 
-      // comboBox2
+      // logging
       // 
-      this.comboBox2.FormattingEnabled = true;
-      this.comboBox2.Items.AddRange(new object[] {
-            "Error",
-            "Info",
-            "Debug",
-            "Off"});
-      this.comboBox2.Location = new System.Drawing.Point(88, 43);
-      this.comboBox2.Name = "comboBox2";
-      this.comboBox2.Size = new System.Drawing.Size(58, 21);
-      this.comboBox2.TabIndex = 1;
+      this.logging.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.logging.FormattingEnabled = true;
+      this.logging.Location = new System.Drawing.Point(88, 43);
+      this.logging.Name = "logging";
+      this.logging.Size = new System.Drawing.Size(78, 21);
+      this.logging.TabIndex = 1;
       // 
       // label1
       // 
@@ -86,7 +74,7 @@
       // 
       // close
       // 
-      this.close.Location = new System.Drawing.Point(30, 70);
+      this.close.Location = new System.Drawing.Point(41, 70);
       this.close.Name = "close";
       this.close.Size = new System.Drawing.Size(94, 39);
       this.close.TabIndex = 4;
@@ -100,12 +88,13 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
       this.AutoSize = true;
-      this.ClientSize = new System.Drawing.Size(163, 120);
+      this.ClientSize = new System.Drawing.Size(180, 119);
       this.Controls.Add(this.close);
       this.Controls.Add(this.label2);
       this.Controls.Add(this.label1);
-      this.Controls.Add(this.comboBox2);
-      this.Controls.Add(this.comboBox1);
+      this.Controls.Add(this.logging);
+      this.Controls.Add(this.ports);
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MaximizeBox = false;
       this.MinimizeBox = false;
@@ -120,8 +109,8 @@
 
     #endregion
 
-    private System.Windows.Forms.ComboBox comboBox1;
-    private System.Windows.Forms.ComboBox comboBox2;
+    private System.Windows.Forms.ComboBox ports;
+    private System.Windows.Forms.ComboBox logging;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.Button close;

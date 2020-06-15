@@ -27,7 +27,7 @@ namespace Fluiid.Source.Forms
       this.Load += new EventHandler(Loader);
 
       // Close button
-      Close.Click += new EventHandler(onClickClose);
+      CloseBtn.Click += new EventHandler(onClickClose);
     }
 
     /// <summary>

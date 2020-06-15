@@ -1,5 +1,6 @@
 ﻿using Fluiid.Source.Utility;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -13,7 +14,7 @@ namespace Fluiid.Source
     /// <summary>
     /// Settings File
     /// </summary>
-    public const string settingsFile = "config.xml";
+    public static string settingsFile = "Asset" +Path.DirectorySeparatorChar+"config.xml";
 
     /// <summary>
     /// Actual configs

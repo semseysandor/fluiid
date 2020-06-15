@@ -12,11 +12,6 @@ namespace Fluiid.Source.Components.Logger
   class LogLevels
   {
     /// <summary>
-		/// Log all
-		/// </summary>
-    public const int All = 0;
-
-    /// <summary>
     /// Debug information
     /// </summary>
     public const int Debug = 0;
@@ -45,5 +40,56 @@ namespace Fluiid.Source.Components.Logger
     /// Logging off
     /// </summary>
     public const int Off = 5;
+
+    /// <summary>
+    /// Return log level string
+    /// </summary>
+    /// <param name="loglevel">Log level integer</param>
+    /// <returns></returns>
+    public static string LogLevelToString(int loglevel)
+    {
+      switch (loglevel) {
+        case LogLevels.Debug:
+          return "Debug";
+        case LogLevels.Info:
+          return "Info";
+        case LogLevels.Warning:
+          return "Warning";
+        case LogLevels.Error:
+          return "Error";
+        case LogLevels.Critical:
+          return "Critical";
+        case LogLevels.Off:
+          return "Off";
+        default:
+          return "";
+      }
+    }
+
+    /// <summary>
+    /// Return log level string
+    /// </summary>
+    /// <param name="loglevel">Log level string</param>
+    /// <returns></returns>
+    public static int LogLevelFromString(string loglevel)
+    {
+      switch (loglevel)
+      {
+        case "Debug":
+          return LogLevels.Debug;
+        case "Info":
+          return LogLevels.Info;
+        case "Warning":
+          return LogLevels.Warning;
+        case "Error":
+          return LogLevels.Error;
+        case "Critical":
+          return LogLevels.Critical;
+        case "Off":
+          return LogLevels.Off;
+        default:
+          return 0;
+      }
+    }
   }
 }

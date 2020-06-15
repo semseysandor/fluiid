@@ -31,7 +31,7 @@
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
       this.PictureBox1 = new System.Windows.Forms.PictureBox();
       this.TextInfo = new System.Windows.Forms.Label();
-      this.Close = new System.Windows.Forms.Button();
+      this.CloseBtn = new System.Windows.Forms.Button();
       ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
       this.SuspendLayout();
       // 
@@ -54,26 +54,26 @@
       this.TextInfo.TabIndex = 2;
       this.TextInfo.Text = "info";
       // 
-      // Close
+      // CloseBtn
       // 
-      this.Close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-      this.Close.Location = new System.Drawing.Point(237, 147);
-      this.Close.Name = "Close";
-      this.Close.Size = new System.Drawing.Size(82, 32);
-      this.Close.TabIndex = 3;
-      this.Close.Text = "Cool!";
-      this.Close.UseVisualStyleBackColor = true;
+      this.CloseBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+      this.CloseBtn.Location = new System.Drawing.Point(237, 147);
+      this.CloseBtn.Name = "CloseBtn";
+      this.CloseBtn.Size = new System.Drawing.Size(82, 32);
+      this.CloseBtn.TabIndex = 3;
+      this.CloseBtn.Text = "Cool!";
+      this.CloseBtn.UseVisualStyleBackColor = true;
       // 
       // About
       // 
-      this.AcceptButton = this.Close;
+      this.AcceptButton = this.CloseBtn;
       this.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
       this.AllowDrop = true;
       this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
       this.AutoSize = true;
       this.ClientSize = new System.Drawing.Size(342, 204);
-      this.Controls.Add(this.Close);
+      this.Controls.Add(this.CloseBtn);
       this.Controls.Add(this.TextInfo);
       this.Controls.Add(this.PictureBox1);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -93,6 +93,6 @@
 
     internal System.Windows.Forms.PictureBox PictureBox1;
     internal System.Windows.Forms.Label TextInfo;
-    internal System.Windows.Forms.Button Close;
+    internal System.Windows.Forms.Button CloseBtn;
   }
 }

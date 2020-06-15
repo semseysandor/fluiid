@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
-  <porting>COM3</porting>
+  <port>COM3</port>
   <logging>2</logging>
 </config>
