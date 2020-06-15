@@ -58,6 +58,9 @@ namespace Fluiid.Source.Forms
 
       // Connect device
       ButtonConnect.Click += new EventHandler(this.ConnectDevice);
+
+      // Disconnect device
+      ButtonDisconnect.Click += new EventHandler(this.DisConnectDevice);
     }
 
     /// <summary>
@@ -98,6 +101,18 @@ namespace Fluiid.Source.Forms
       // Set application UI to busy
       ui.SetBusy();
       app.DeviceConnect();
+    }
+
+    /// <summary>
+    /// Disconnect device
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void DisConnectDevice(object sender, EventArgs e)
+    {
+      // Set application UI to busy
+      ui.SetBusy();
+      app.DeviceDisConnect();
     }
 
     /// <summary>

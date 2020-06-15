@@ -124,5 +124,13 @@ namespace Fluiid.Source
     {
       communicator.Connect();
     }
+
+    /// <summary>
+    /// Disconnect device
+    /// </summary>
+    public void DeviceDisConnect()
+    {
+      communicator.Close();
+    }
   }
 }
