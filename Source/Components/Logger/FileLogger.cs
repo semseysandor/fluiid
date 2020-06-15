@@ -37,7 +37,7 @@ namespace Fluiid.Source.Components.Logger
           return;
         }
 
-        // If message level is hugher than log level --> important msg, log it
+        // If message level is higher than log level --> important msg, log it
         if (msgLevel >= LogLevel)
         {
           // Also write to console
