@@ -7,7 +7,7 @@ namespace Fluiid
   /// <summary>
   /// Program Runner
   /// </summary>
-  static class Program
+  static class Runner
   {
     /// <summary>
     /// App ROOT path

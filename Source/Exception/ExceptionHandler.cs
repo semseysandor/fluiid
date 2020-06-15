@@ -134,7 +134,7 @@ namespace Fluiid.Source.Exception
     /// <param name="code"></param>
     protected void callExit(int code=1)
     {
-      Program.Exit(code);
+      Runner.Exit(code);
     }
   }
 }
