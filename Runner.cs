@@ -1,6 +1,6 @@
-﻿using Fluiid.Source;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using Fluiid.Source;
 
 namespace Fluiid
 {
@@ -9,11 +9,6 @@ namespace Fluiid
   /// </summary>
   static class Runner
   {
-    /// <summary>
-    /// App ROOT path
-    /// </summary>
-    public static string ROOT = Application.StartupPath;
-
     /// <summary>
     /// The main entry point for the application.
     /// </summary>
@@ -24,9 +19,7 @@ namespace Fluiid
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
 
-      Console.WriteLine("----------------------");
-      
-      // Boot app
+      // Boot & run app
       App app = new App();
       app.Run();
     }
@@ -35,7 +28,7 @@ namespace Fluiid
     /// Exit application
     /// </summary>
     /// <param name="code">Exit code</param>
-    public static void Exit(int code=0)
+    public static void Exit(int code = 0)
     {
       // If Application started (WinForms)
       if (Application.MessageLoop)
