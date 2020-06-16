@@ -18,8 +18,8 @@ namespace Fluiid.Source.Utility
       {
         return XElement.Load(path);
       }
-      
-        return null;
+
+      return null;
     }
 
     /// <summary>
