@@ -8,7 +8,7 @@ namespace Fluiid.Source.Components
   /// <summary>
   /// Handles serial port communication
   /// </summary>
-  public partial class Communicator
+  public class Communicator
   {
     /// <summary>
     /// Command block start character
