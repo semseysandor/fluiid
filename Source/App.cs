@@ -38,19 +38,14 @@ namespace Fluiid.Source
     private Communicator communicator;
 
     /// <summary>
-    /// Background worker
+    /// Controller
     /// </summary>
-    private Worker worker;
+    private Controller controller;
 
     /// <summary>
     /// Main Window
     /// </summary>
     private Forms.Main main;
-
-    /// <summary>
-    /// Delegate for work procedures
-    /// </summary>
-    public delegate void WorkProcedure();
 
     /// <summary>
     /// Constructor
@@ -62,7 +57,7 @@ namespace Fluiid.Source
       logger = null;
       configurator = null;
       communicator = null;
-      worker = null;
+      controller = null;
       main = null;
     }
 
@@ -106,29 +101,30 @@ namespace Fluiid.Source
 
       // Logger
       logger = new FileLogger("log_" + DateTime.Now.ToString("yy-MM-dd") + ".txt");
-      logger.Debug("Logger loaded");
+      logger.Debug("Logger loaded.");
 
       // Logger now ready --> give to ExceptionHandler
-      exceptionHandler.SetLogger(ref logger);
+      exceptionHandler.SetLogger(logger);
 
       // Configurator
-      configurator = new Configurator(this);
+      configurator = new Configurator();
       configurator.Init();
-      logger.Debug("Configurator loaded");
+      logger.Debug("Configurator loaded.");
 
       // Communicator
-      communicator = new Communicator(configurator.Port, ref logger);
+      communicator = new Communicator(configurator.Port, logger);
       communicator.Init();
-      logger.Debug("Communicator loaded");
+      logger.Debug("Communicator loaded.");
 
-      // Worker
-      worker = new Worker();
+      // Controller
+      controller = new Controller(logger, communicator);
+      logger.Debug("Controller loaded.");
 
       // Event Bus
-      eventBus = new EventBus(this, main, communicator);
+      eventBus = new EventBus(this, main, communicator, controller);
 
       // Main window
-      main = new Forms.Main(this, eventBus, configurator);
+      main = new Forms.Main(eventBus, configurator);
       main.Init();
 
       // Main now ready --> give to Event bus
@@ -143,31 +139,58 @@ namespace Fluiid.Source
       // Communicator
       communicator.Connected += new EventBus.ParamlessEventHandler(eventBus.onDeviceConnected);
       communicator.Disconnected += new EventBus.ParamlessEventHandler(eventBus.onDeviceDisConnected);
-
-      // Worker
-      worker.DoWork += new DoWorkEventHandler(eventBus.onWorkerStart);
-      worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(eventBus.onWorkerReady);
     }
 
     /// <summary>
     /// Run worker
     /// </summary>
     /// <param name="job">Job to work on</param>
-    public void RunWorker(WorkProcedure job)
+    public void RunWorker(Worker.Job job)
     {
-      // Job to work on
-      worker.setJob(job);
+      // Create worker
+      Worker worker = new Worker(job);
+
+      // Add worker events
+      AddWorkerEvents(ref worker);
 
       // Set UI to busy
       main.AppBusy();
-
-      // Add exception handling to worker
-      worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(WorkerErrorHandling);
 
       // Start worker
       worker.RunWorkerAsync();
     }
 
+    /// <summary>
+    /// Run worker
+    /// </summary>
+    /// <param name="job">Job to work on</param>
+    public void RunWorker(Controller.CommandDelegate job, string param)
+    {
+      // Create new worker
+      Worker worker = new Worker(job);
+
+      // Add worker events
+      AddWorkerEvents(ref worker);
+
+      // Set UI to busy
+      main.AppBusy();
+
+      // Start worker
+      worker.RunWorkerAsync(argument: param);
+    }
+
+    /// <summary>
+    /// Add Event handlers to worker
+    /// </summary>
+    /// <param name="worker">Worker to add handlers</param>
+    private void AddWorkerEvents(ref Worker worker)
+    {
+      // Set App UI to ready
+      worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(eventBus.onWorkerReady);
+
+      // Add exception handling to worker
+      worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(WorkerErrorHandling);
+    }
     /// <summary>
     /// Error handling for worker jobs
     /// </summary>
@@ -175,13 +198,14 @@ namespace Fluiid.Source
     /// <param name="e"></param>
     private void WorkerErrorHandling(object sender, RunWorkerCompletedEventArgs e)
     {
+      Worker worker = (Worker)sender;
+
       // Remove this event handler to allow garbage collection on the worker later
       worker.RunWorkerCompleted -= WorkerErrorHandling;
 
       // No exception --> worker finished OK --> do nothing
       if (e.Error is null)
       {
-        
         return;
       }
 

@@ -57,16 +57,6 @@ namespace Fluiid.Source.Components
     }
 
     /// <summary>
-    /// Handler for Worker Start event
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    public void onWorkerStart(object sender, EventArgs e)
-    {
-      main.Invoke(new Worker.Job(main.AppBusy));
-    }
-
-    /// <summary>
     /// Handler for Worker ready event
     /// </summary>
     /// <param name="sender"></param>
