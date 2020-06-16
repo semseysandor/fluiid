@@ -3,13 +3,13 @@
   /// <summary>
   /// Communication Exception
   /// </summary>
-  public class CommunicationException: BaseException
+  public class CommunicationException : BaseException
   {
     /// <summary>
     /// Exception context
     /// </summary>
     public const string DEF_CONTEXT = "Communication problem.";
-    
+
     /// <summary>
     /// Constructor
     /// </summary>

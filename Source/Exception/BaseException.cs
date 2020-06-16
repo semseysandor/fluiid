@@ -3,7 +3,7 @@
   /// <summary>
   /// Base Exception
   /// </summary>
-  public class BaseException: System.Exception
+  public class BaseException : System.Exception
   {
     /// <summary>
     /// Exception context
@@ -15,7 +15,7 @@
     /// </summary>
     /// <param name="context">Exception context</param>
     /// <param name="message">Exception message</param>
-    public BaseException(string context, string message): base(message)
+    public BaseException(string context, string message) : base(message)
     {
       Context = context;
     }
@@ -26,7 +26,7 @@
     /// <param name="context">Exception context</param>
     /// <param name="message">Exception message</param>
     /// <param name="inner">Inner exception</param>
-    public BaseException(string context, string message, System.Exception inner): base(message, inner)
+    public BaseException(string context, string message, System.Exception inner) : base(message, inner)
     {
       Context = context;
     }

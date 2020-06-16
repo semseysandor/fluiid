@@ -32,7 +32,7 @@ namespace Fluiid.Source.Exception
     /// </summary>
     /// <param name="appWindow">Parent window</param>
     /// <param name="logger">Logger</param>
-    public ExceptionHandler(IWin32Window appWindow, ref Logger logger)
+    public ExceptionHandler(IWin32Window appWindow, Logger logger)
     {
       this.appWindow = appWindow;
       this.logger = logger;
@@ -42,7 +42,7 @@ namespace Fluiid.Source.Exception
     /// Set Logger
     /// </summary>
     /// <param name="logger">Logger</param>
-    public void SetLogger(ref Logger logger)
+    public void SetLogger(Logger logger)
     {
       this.logger = logger;
     }
@@ -82,7 +82,7 @@ namespace Fluiid.Source.Exception
     /// <param name="ex">Exception</param>
     public void handleLoggingError(LoggerException ex)
     {
-      ShowError(ex.Message, ex.Context);   
+      ShowError(ex.Message, ex.Context);
     }
 
     /// <summary>
@@ -105,8 +105,9 @@ namespace Fluiid.Source.Exception
     {
       if (appWindow is null)
       {
-        MessageBox.Show(text, "Fluiid - "+context, MessageBoxButtons.OK, MessageBoxIcon.Error);
-      } else
+        MessageBox.Show(text, "Fluiid - " + context, MessageBoxButtons.OK, MessageBoxIcon.Error);
+      }
+      else
       {
         MessageBox.Show(appWindow, text, "Fluiid - Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
@@ -142,7 +143,7 @@ namespace Fluiid.Source.Exception
     /// Call application exit;
     /// </summary>
     /// <param name="code"></param>
-    protected void callExit(int code=1)
+    protected void callExit(int code = 1)
     {
       Runner.Exit(code);
     }
