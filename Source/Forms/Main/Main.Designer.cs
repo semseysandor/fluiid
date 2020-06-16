@@ -37,7 +37,7 @@
       this.ButtonConnect = new System.Windows.Forms.Button();
       this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
       this.Settings = new System.Windows.Forms.ToolStripMenuItem();
-      this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.AboutBtn = new System.Windows.Forms.ToolStripMenuItem();
       this.ButtonSend = new System.Windows.Forms.Button();
       this.TextBoxCmd = new System.Windows.Forms.TextBox();
       this.label2 = new System.Windows.Forms.Label();
@@ -105,7 +105,7 @@
       // 
       this.MenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Settings,
-            this.AboutToolStripMenuItem});
+            this.AboutBtn});
       this.MenuStrip1.Location = new System.Drawing.Point(0, 0);
       this.MenuStrip1.Name = "MenuStrip1";
       this.MenuStrip1.Size = new System.Drawing.Size(337, 24);
@@ -118,12 +118,12 @@
       this.Settings.Size = new System.Drawing.Size(61, 20);
       this.Settings.Text = "Settings";
       // 
-      // AboutToolStripMenuItem
+      // AboutBtn
       // 
-      this.AboutToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-      this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
-      this.AboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-      this.AboutToolStripMenuItem.Text = "About";
+      this.AboutBtn.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+      this.AboutBtn.Name = "AboutBtn";
+      this.AboutBtn.Size = new System.Drawing.Size(52, 20);
+      this.AboutBtn.Text = "About";
       // 
       // ButtonSend
       // 
@@ -191,7 +191,7 @@
 		internal System.Windows.Forms.Button ButtonConnect;
 		internal System.Windows.Forms.MenuStrip MenuStrip1;
 		internal System.Windows.Forms.ToolStripMenuItem Settings;
-		internal System.Windows.Forms.ToolStripMenuItem AboutToolStripMenuItem;
+		internal System.Windows.Forms.ToolStripMenuItem AboutBtn;
 		internal System.Windows.Forms.Button ButtonSend;
 		internal System.Windows.Forms.TextBox TextBoxCmd;
     private System.Windows.Forms.Label label2;

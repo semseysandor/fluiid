@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Fluiid.Source.Components;
 
 namespace Fluiid.Source.Forms
 {
@@ -14,6 +15,11 @@ namespace Fluiid.Source.Forms
     private App app;
 
     /// <summary>
+    /// Event bus
+    /// </summary>
+    private EventBus eventBus;
+
+    /// <summary>
     /// Configurator
     /// </summary>
     private Configurator configurator;
@@ -21,10 +27,14 @@ namespace Fluiid.Source.Forms
     /// <summary>
     /// Constructor
     /// </summary>
-    public Main(App app, Configurator configurator)
+    /// <param name="app">Application</param>
+    /// <param name="eventBus">Event bus</param>
+    /// <param name="configurator">Configurator</param>
+    public Main(App app, EventBus eventBus, Configurator configurator)
     {
       InitializeComponent();
       this.app = app;
+      this.eventBus = eventBus;
       this.configurator = configurator;
     }
 
@@ -36,16 +46,16 @@ namespace Fluiid.Source.Forms
       // Add Event handlers
 
       // About
-      AboutToolStripMenuItem.Click += new EventHandler(openAbout);
+      AboutBtn.Click += new EventHandler(openAbout);
 
       // Settings
       Settings.Click += new EventHandler(openSettings);
 
       // Connect device
-      ButtonConnect.Click += new EventHandler(app.DeviceConnect);
+      ButtonConnect.Click += new EventHandler(eventBus.onConnectClick);
 
       // Disconnect device
-      ButtonDisconnect.Click += new EventHandler(app.DeviceDisConnect);
+      ButtonDisconnect.Click += new EventHandler(eventBus.onDisConnectClick);
     }
 
     /// <summary>

@@ -18,6 +18,11 @@ namespace Fluiid.Source
     private ExceptionHandler exceptionHandler;
 
     /// <summary>
+    /// Event Bus
+    /// </summary>
+    private EventBus eventBus;
+
+    /// <summary>
     /// Logger
     /// </summary>
     private Logger logger;
@@ -53,48 +58,12 @@ namespace Fluiid.Source
     public App()
     {
       exceptionHandler = null;
+      eventBus = null;
       logger = null;
       configurator = null;
       communicator = null;
       worker = null;
       main = null;
-    }
-
-    /// <summary>
-    /// Boot components
-    /// </summary>
-    private void Boot()
-    {
-      // Boot Exception handler
-      exceptionHandler = new ExceptionHandler();
-
-      // Boot Logger
-      logger = new FileLogger("log_" + DateTime.Now.ToString("yy-MM-dd") + ".txt");
-      logger.Debug("Logger loaded");
-
-      // Logger now ready --> give to ExceptionHandler
-      exceptionHandler.SetLogger(ref logger);
-
-      // Boot Configurator
-      configurator = new Configurator(this);
-      configurator.Boot();
-      logger.Debug("Configurator loaded");
-
-      // Boot Communicator
-      communicator = new Communicator(configurator.Port, ref logger);
-      communicator.Boot();
-      communicator.Connected += new EventHandler(onDeviceConnected);
-      communicator.Disconnected += new EventHandler(onDeviceDisConnected);
-      logger.Debug("Communicator loaded");
-
-      // Init worker
-      worker = new Worker();
-      worker.DoWork += new DoWorkEventHandler(onWorkerStart);
-      worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(onWorkerReady);
-
-      // Init main window
-      main = new Forms.Main(this, configurator);
-      main.Init();
     }
 
     /// <summary>
@@ -106,7 +75,10 @@ namespace Fluiid.Source
       {
         // Boot components
         Boot();
-        
+
+        // Add event handlers
+        AddEventHandlers();
+
         // Run application
         Application.Run(main);
       }
@@ -125,30 +97,63 @@ namespace Fluiid.Source
     }
 
     /// <summary>
-    /// Handler for Worker Start event
+    /// Boot components
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void onWorkerStart(object sender, EventArgs e)
+    private void Boot()
     {
-      main.Invoke(new WorkProcedure(main.AppBusy));
+      // Exception handler
+      exceptionHandler = new ExceptionHandler();
+
+      // Logger
+      logger = new FileLogger("log_" + DateTime.Now.ToString("yy-MM-dd") + ".txt");
+      logger.Debug("Logger loaded");
+
+      // Logger now ready --> give to ExceptionHandler
+      exceptionHandler.SetLogger(ref logger);
+
+      // Configurator
+      configurator = new Configurator(this);
+      configurator.Init();
+      logger.Debug("Configurator loaded");
+
+      // Communicator
+      communicator = new Communicator(configurator.Port, ref logger);
+      communicator.Init();
+      logger.Debug("Communicator loaded");
+
+      // Worker
+      worker = new Worker();
+
+      // Event Bus
+      eventBus = new EventBus(this, main, communicator);
+
+      // Main window
+      main = new Forms.Main(this, eventBus, configurator);
+      main.Init();
+
+      // Main now ready --> give to Event bus
+      eventBus.SetMain(main);
     }
 
     /// <summary>
-    /// Handler for Worker ready event
+    /// Add Event handlers
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void onWorkerReady(object sender, EventArgs e)
+    private void AddEventHandlers()
     {
-      main.Invoke(new WorkProcedure(main.AppReady));
+      // Communicator
+      communicator.Connected += new EventBus.ParamlessEventHandler(eventBus.onDeviceConnected);
+      communicator.Disconnected += new EventBus.ParamlessEventHandler(eventBus.onDeviceDisConnected);
+
+      // Worker
+      worker.DoWork += new DoWorkEventHandler(eventBus.onWorkerStart);
+      worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(eventBus.onWorkerReady);
     }
 
     /// <summary>
-    /// Runs worker
+    /// Run worker
     /// </summary>
     /// <param name="job">Job to work on</param>
-    private void RunWorker(WorkProcedure job)
+    public void RunWorker(WorkProcedure job)
     {
       // Job to work on
       worker.setJob(job);
@@ -158,42 +163,6 @@ namespace Fluiid.Source
 
       // Start worker
       worker.RunWorkerAsync();
-    }
-
-    /// <summary>
-    /// Connect device
-    /// </summary>
-    public void DeviceConnect(object sender, EventArgs e)
-    { 
-      RunWorker(new WorkProcedure(communicator.Connect));
-    }
-
-    /// <summary>
-    /// Disconnect device
-    /// </summary>
-    public void DeviceDisConnect(object sender, EventArgs e)
-    {
-      RunWorker(new WorkProcedure(communicator.Close));
-    }
-
-    /// <summary>
-    /// Handler for device connected event
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void onDeviceConnected(object sender, EventArgs e)
-    {
-      main.Invoke(new WorkProcedure(main.DeviceConnected));
-    }
-
-    /// <summary>
-    /// Handler for device disconnected event
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void onDeviceDisConnected(object sender, EventArgs e)
-    {
-      main.Invoke(new WorkProcedure(main.DeviceDisConnected));
     }
   }
 }

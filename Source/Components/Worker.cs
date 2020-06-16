@@ -5,13 +5,13 @@ namespace Fluiid.Source.Components
   /// <summary>
   /// Background worker for async jobs
   /// </summary>
-  class Worker: BackgroundWorker
+  class Worker : BackgroundWorker
   {
     /// <summary>
     /// Actual job
     /// </summary>
     private App.WorkProcedure job;
-    
+
     /// <summary>
     /// Constructor
     /// </summary>

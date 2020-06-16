@@ -73,6 +73,7 @@
     <Compile Include="Source\Components\Communicator.cs" />
     <Compile Include="Source\Components\Configurator.cs" />
     <Compile Include="Source\Components\Controller.cs" />
+    <Compile Include="Source\Components\EventBus.cs" />
     <Compile Include="Source\Components\Logger\FileLogger.cs" />
     <Compile Include="Source\Components\Logger\Logger.cs" />
     <Compile Include="Source\Components\Logger\LoggerInterface.cs" />

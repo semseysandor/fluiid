@@ -33,7 +33,7 @@ namespace Fluiid.Source
       public struct PORT
       {
         public const string name = "port";
-        public const string value = "COM 4";
+        public const string value = "COM4";
       }
       public struct LOG
       {
@@ -101,7 +101,7 @@ namespace Fluiid.Source
     /// <summary>
     /// Boot Component
     /// </summary>
-    public void Boot()
+    public void Init()
     {
       // Load config file
       configXML = XMLProcessor.Read(settingsFile);

@@ -64,12 +64,12 @@ namespace Fluiid.Source.Components
     /// <summary>
     /// Device Connected
     /// </summary>
-    public event EventHandler Connected;
+    public event EventBus.ParamlessEventHandler Connected;
 
     /// <summary>
     /// Device disconnected Event
     /// </summary>
-    public event EventHandler Disconnected;
+    public event EventBus.ParamlessEventHandler Disconnected;
 
     /// <summary>
     /// Constructor
@@ -85,7 +85,7 @@ namespace Fluiid.Source.Components
     /// <summary>
     /// Boot communicator
     /// </summary>
-    public void Boot()
+    public void Init()
     {
       port = new SerialPort(portName, Port.baudRate, Port.parity, Port.dataBits, Port.stopBits);
     }
@@ -100,7 +100,9 @@ namespace Fluiid.Source.Components
       // Simulation
       Thread.Sleep(2000);
       logger.Info("Device connected.");
-      Connected?.Invoke(this, new EventArgs());
+      Connected?.Invoke();
+      Thread.Sleep(2000);
+      logger.Info("kutya faja");
       return;
 
       try
@@ -109,11 +111,11 @@ namespace Fluiid.Source.Components
         if (port.IsOpen == true)
         {
           logger.Info("Device connected.");
-          Connected?.Invoke(this, new EventArgs());
+          Connected?.Invoke();
         } else
         {
           logger.Info("Device not connected.");
-          Disconnected?.Invoke(this, new EventArgs());
+          Disconnected?.Invoke();
         }
       }
       catch (System.Exception ex)
@@ -132,13 +134,13 @@ namespace Fluiid.Source.Components
       //Simulation
       Thread.Sleep(500);
       logger.Info("Device not connected.");
-      Disconnected?.Invoke(this, new EventArgs());
+      Disconnected?.Invoke();
       return;
 
       // Chech if already closed
       if (port.IsOpen == false)
       {
-        Disconnected?.Invoke(this, new EventArgs());
+        Disconnected?.Invoke();
         return;
       }
 
@@ -149,7 +151,7 @@ namespace Fluiid.Source.Components
         if (port.IsOpen == false)
         {
           logger.Info("Device not connected.");
-          Disconnected?.Invoke(this, new EventArgs());
+          Disconnected?.Invoke();
         }
       }
       catch (System.Exception ex)
@@ -168,13 +170,13 @@ namespace Fluiid.Source.Components
       {
         port.Write(COMMAND_START_CHAR + DEVICE_ADDR + command + Environment.NewLine);
         logger.Debug("S: " + command);
-        System.Threading.Thread.Sleep(ResponseTime);
+        Thread.Sleep(ResponseTime);
         return true;
       }
       catch (System.Exception ex)
       {
         logger.Info("Device connection lost.");
-        Disconnected?.Invoke(this, new EventArgs());
+        Disconnected?.Invoke();
         throw new CommunicationException("Can not send command to device.", ex);
       }
     }
@@ -190,6 +192,7 @@ namespace Fluiid.Source.Components
 
       // Received character
       int received;
+
       try
       {
         while (port.BytesToRead > 0)
@@ -224,7 +227,7 @@ namespace Fluiid.Source.Components
       catch (System.Exception ex)
       {
         logger.Info("Device connection lost.");
-        Disconnected?.Invoke(this, new EventArgs());
+        Disconnected?.Invoke();
         throw new CommunicationException("Can not read from device", ex);
       }
     }
