@@ -5,28 +5,41 @@ namespace Fluiid.Source.Components
   /// <summary>
   /// Background worker for async jobs
   /// </summary>
-  class Worker : BackgroundWorker
+  public class Worker : BackgroundWorker
   {
+    /// <summary>
+    /// Job delegate
+    /// </summary>
+    public delegate void Job();
+
     /// <summary>
     /// Actual job
     /// </summary>
-    private App.WorkProcedure job;
+    private Job job;
+
+    /// <summary>
+    /// Command job
+    /// </summary>
+    private Controller.CommandDelegate jobCommand;
 
     /// <summary>
     /// Constructor
     /// </summary>
-    public Worker()
+    /// <param name="job">Job to work on</param>
+    public Worker(Job job)
     {
+      this.job = job;
       this.DoWork += Run;
     }
 
     /// <summary>
-    /// Set job
+    /// Constructor
     /// </summary>
-    /// <param name="job">Job to work</param>
-    public void setJob(App.WorkProcedure job)
+    /// <param name="job">Job to work on</param>
+    public Worker(Controller.CommandDelegate job)
     {
-      this.job = job;
+      this.jobCommand = job;
+      this.DoWork += RunCommand;
     }
 
     /// <summary>
@@ -37,6 +50,17 @@ namespace Fluiid.Source.Components
     public void Run(object sender, DoWorkEventArgs e)
     {
       job.Invoke();
+    }
+
+    /// <summary>
+    /// Run worker
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public void RunCommand(object sender, DoWorkEventArgs e)
+    {
+      string param = e.Argument.ToString();
+      jobCommand.Invoke(param);
     }
   }
 }
