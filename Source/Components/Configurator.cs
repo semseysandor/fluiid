@@ -1,8 +1,8 @@
-﻿using Fluiid.Source.Utility;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using Fluiid.Source.Utility;
 
 namespace Fluiid.Source
 {
@@ -14,7 +14,7 @@ namespace Fluiid.Source
     /// <summary>
     /// Settings File
     /// </summary>
-    public static string settingsFile = "Asset" +Path.DirectorySeparatorChar+"config.xml";
+    public static string settingsFile = "Asset" + Path.DirectorySeparatorChar + "config.xml";
 
     /// <summary>
     /// Actual configs
@@ -53,17 +53,13 @@ namespace Fluiid.Source
     private Config cfg;
 
     /// <summary>
-    /// Application
-    /// </summary>
-    private App app;
-
-    /// <summary>
     /// Serial Port
     /// </summary>
     public string Port
-    { 
+    {
       get => cfg.port;
-      set {
+      set
+      {
         if (cfg.port != value)
         {
           cfg.port = value;
@@ -92,10 +88,8 @@ namespace Fluiid.Source
     /// <summary>
     /// Class constructor
     /// </summary>
-    /// <param name="application"></param>
-    public Configurator(App application)
+    public Configurator()
     {
-      app = application;
     }
 
     /// <summary>
@@ -122,17 +116,21 @@ namespace Fluiid.Source
     /// </summary>
     /// <param name="name">Config name</param>
     /// <param name="defaultValue">Default value</param>
-    /// <returns></returns>
+    /// <returns>Config value</returns>
     protected int LoadConfigInt(string name, int defaultValue)
     {
+      // Get elements with name
       IEnumerable<XElement> elements = configXML.Elements(name);
       if (elements.Any())
       {
-        if (int.TryParse(elements.Last().Value, out int config)) {
+        // Get last value (if more than one element with same name)
+        if (int.TryParse(elements.Last().Value, out int config))
+        {
           return config;
         }
       }
 
+      // No config value found in file --> return default
       return defaultValue;
     }
 
@@ -144,12 +142,15 @@ namespace Fluiid.Source
     /// <returns></returns>
     protected string LoadConfigString(string name, string defaultValue)
     {
+      // Get elements with name
       IEnumerable<XElement> elements = configXML.Elements(name);
       if (elements.Any())
       {
+        // Get last value (if more than one element with same name)
         return elements.Last().Value;
       }
 
+      // No config value found in file --> return default
       return defaultValue;
     }
 

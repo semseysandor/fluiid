@@ -3,17 +3,24 @@
   /// <summary>
   /// Controller
   /// </summary>
-  class Controller
+  public class Controller
   {
+    /// <summary>
+    /// Command method delegate
+    /// </summary>
+    /// <param name="command">Command to send</param>
+    /// <returns>Success</returns>
+    public delegate bool CommandDelegate(string command);
+
     /// <summary>
     /// Communicator
     /// </summary>
-    private Communicator communicator;
+    private readonly Communicator communicator;
 
     /// <summary>
     /// Logger
     /// </summary>
-    private Logger.Logger logger;
+    private readonly Logger.Logger logger;
 
     /// <summary>
     /// Constructor

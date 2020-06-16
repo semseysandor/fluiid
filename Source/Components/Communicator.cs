@@ -59,7 +59,7 @@ namespace Fluiid.Source.Components
     /// <summary>
     /// Logger
     /// </summary>
-    private Logger.Logger logger;
+    private readonly Logger.Logger logger;
 
     /// <summary>
     /// Device Connected
@@ -76,7 +76,7 @@ namespace Fluiid.Source.Components
     /// </summary>
     /// <param name="port">Serial port name</param>
     /// <param name="logger">Logger</param>
-    public Communicator(string port, ref Logger.Logger logger)
+    public Communicator(string port, Logger.Logger logger)
     {
       portName = port;
       this.logger = logger;
@@ -91,17 +91,11 @@ namespace Fluiid.Source.Components
     }
 
     /// <summary>
-    /// Open the serial port
+    /// Open serial port
     /// </summary>
     public void Connect()
     {
       logger.Debug("Connecting to device...");
-
-      // Simulation
-      Thread.Sleep(1000);
-      //logger.Info("Device connected.");
-      //Connected?.Invoke();
-      //return;
 
       try
       {
@@ -110,7 +104,8 @@ namespace Fluiid.Source.Components
         {
           logger.Info("Device connected.");
           Connected?.Invoke();
-        } else
+        }
+        else
         {
           logger.Info("Device not connected.");
           Disconnected?.Invoke();
@@ -123,17 +118,11 @@ namespace Fluiid.Source.Components
     }
 
     /// <summary>
-    /// Closes the serial port
+    /// Close serial port
     /// </summary>
     public void Close()
     {
       logger.Debug("Disconnecting device...");
-
-      //Simulation
-      Thread.Sleep(500);
-      logger.Info("Device not connected.");
-      Disconnected?.Invoke();
-      return;
 
       // Check if already closed
       if (port.IsOpen == false)
@@ -216,7 +205,7 @@ namespace Fluiid.Source.Components
         // Remove answer start character and master address
         if (answer.Length >= 2 && answer[0].ToString() == "/" && answer[1].ToString() == "0")
         {
-          answer=answer.Substring(2);
+          answer = answer.Substring(2);
         }
 
         logger.Debug("R: " + answer);
@@ -294,7 +283,7 @@ namespace Fluiid.Source.Components
         status = IsReady();
 
         // Device not busy --> return status
-        if (status == Status.READY || status==Status.ERROR)
+        if (status == Status.READY || status == Status.ERROR)
         {
           return status;
         }
