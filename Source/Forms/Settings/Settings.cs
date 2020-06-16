@@ -62,14 +62,15 @@ namespace Fluiid.Source.Forms.Settings
       LogLevel = configurator.LogLevel;
 
       // Cycle through ports
-      foreach (object item in ports.Items) {
+      foreach (object item in ports.Items)
+      {
         if (item.ToString() == port)
         {
           ports.SelectedItem = item;
         }
       }
 
-      // Cycle through logleveles
+      // Cycle through loglevels
       foreach (object item in logging.Items)
       {
         if (item.ToString() == LogLevels.LogLevelToString(LogLevel))
@@ -87,8 +88,8 @@ namespace Fluiid.Source.Forms.Settings
     private void OnClickClose(object sender, EventArgs e)
     {
       // Write selected values
-      configurator.Port=ports.SelectedItem.ToString();
-      configurator.LogLevel=LogLevels.LogLevelFromString(logging.SelectedItem.ToString());
+      configurator.Port = ports.SelectedItem.ToString();
+      configurator.LogLevel = LogLevels.LogLevelFromString(logging.SelectedItem.ToString());
 
       // Close form
       Close();

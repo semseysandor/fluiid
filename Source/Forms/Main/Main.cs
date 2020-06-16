@@ -10,11 +10,6 @@ namespace Fluiid.Source.Forms
   public partial class Main : Form
   {
     /// <summary>
-    /// Application
-    /// </summary>
-    private App app;
-
-    /// <summary>
     /// Event bus
     /// </summary>
     private EventBus eventBus;
@@ -27,13 +22,11 @@ namespace Fluiid.Source.Forms
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="app">Application</param>
     /// <param name="eventBus">Event bus</param>
     /// <param name="configurator">Configurator</param>
-    public Main(App app, EventBus eventBus, Configurator configurator)
+    public Main(EventBus eventBus, Configurator configurator)
     {
       InitializeComponent();
-      this.app = app;
       this.eventBus = eventBus;
       this.configurator = configurator;
     }
@@ -56,6 +49,15 @@ namespace Fluiid.Source.Forms
 
       // Disconnect device
       ButtonDisconnect.Click += new EventHandler(eventBus.onDisConnectClick);
+
+      // Init device
+      ButtonInit.Click += new EventHandler(eventBus.onInit);
+
+      // Wash device
+      ButtonWash.Click += new EventHandler(eventBus.onWash);
+
+      // Send raw command
+      ButtonSend.Click += new EventHandler(onSendCommand);
     }
 
     /// <summary>
@@ -82,6 +84,22 @@ namespace Fluiid.Source.Forms
       settings.StartPosition = FormStartPosition.CenterParent;
       settings.Init();
       settings.ShowDialog(this);
+    }
+
+    /// <summary>
+    /// Event handler for sending raw command
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void onSendCommand(object sender, EventArgs e)
+    {
+      string command = TextBoxCmd.Text;
+
+      // Check if command is presented
+      if (command.Trim().Length > 0)
+      {
+        eventBus.onSend(command);
+      }
     }
 
     /// <summary>

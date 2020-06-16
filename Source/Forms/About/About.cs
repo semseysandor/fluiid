@@ -49,7 +49,7 @@ namespace Fluiid.Source.Forms
     {
       Console.WriteLine("joco");
       TextInfo.Text =
-      "Fluiid v0.6" + Environment.NewLine +
+      "Fluiid v0.8" + Environment.NewLine +
       "Developed by:" + Environment.NewLine +
       "Sandor Semsey" + Environment.NewLine +
       "Copyright 2020";
