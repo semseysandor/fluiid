@@ -29,16 +29,22 @@ namespace Fluiid.Source.Components
     private Communicator communicator;
 
     /// <summary>
+    /// Controller
+    /// </summary>
+    private Controller controller;
+
+    /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="app">Application</param>
     /// <param name="main">Main UI form</param>
     /// <param name="communicator">Communicator</param>
-    public EventBus(App app, Main main,Communicator communicator)
+    public EventBus(App app, Main main, Communicator communicator, Controller controller)
     {
       this.app = app;
       this.main = main;
       this.communicator = communicator;
+      this.controller = controller;
     }
 
     /// <summary>
@@ -57,7 +63,7 @@ namespace Fluiid.Source.Components
     /// <param name="e"></param>
     public void onWorkerStart(object sender, EventArgs e)
     {
-      main.Invoke(new App.WorkProcedure(main.AppBusy));
+      main.Invoke(new Worker.Job(main.AppBusy));
     }
 
     /// <summary>
@@ -67,7 +73,7 @@ namespace Fluiid.Source.Components
     /// <param name="e"></param>
     public void onWorkerReady(object sender, EventArgs e)
     {
-      main.Invoke(new App.WorkProcedure(main.AppReady));
+      main.Invoke(new Worker.Job(main.AppReady));
     }
 
     /// <summary>
@@ -75,7 +81,7 @@ namespace Fluiid.Source.Components
     /// </summary>
     public void onConnectClick(object sender, EventArgs e)
     {
-      app.RunWorker(new App.WorkProcedure(communicator.Connect));
+      app.RunWorker(new Worker.Job(communicator.Connect));
     }
 
     /// <summary>
@@ -83,7 +89,7 @@ namespace Fluiid.Source.Components
     /// </summary>
     public void onDisConnectClick(object sender, EventArgs e)
     {
-      app.RunWorker(new App.WorkProcedure(communicator.Close));
+      app.RunWorker(new Worker.Job(communicator.Close));
     }
 
     /// <summary>
@@ -91,7 +97,7 @@ namespace Fluiid.Source.Components
     /// </summary>
     public void onDeviceConnected()
     {
-      main.Invoke(new App.WorkProcedure(main.DeviceConnected));
+      main.Invoke(new Worker.Job(main.DeviceConnected));
     }
 
     /// <summary>
@@ -99,7 +105,31 @@ namespace Fluiid.Source.Components
     /// </summary>
     public void onDeviceDisConnected()
     {
-      main.Invoke(new App.WorkProcedure(main.DeviceDisConnected));
+      main.Invoke(new Worker.Job(main.DeviceDisConnected));
+    }
+
+    /// <summary>
+    /// Init device
+    /// </summary>
+    public void onInit(object sender, EventArgs e)
+    {
+      app.RunWorker(new Worker.Job(controller.Init));
+    }
+
+    /// <summary>
+    /// Wash device
+    /// </summary>
+    public void onWash(object sender, EventArgs e)
+    {
+      app.RunWorker(new Worker.Job(controller.Wash));
+    }
+
+    /// <summary>
+    /// Send raw command
+    /// </summary>
+    public void onSend(string command)
+    {
+      app.RunWorker(new Controller.CommandDelegate(controller.Command), command);
     }
   }
 }
