@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Fluiid.Source.Components.Logger
+﻿namespace Fluiid.Source.Components.Logger
 {
   /// <summary>
   /// Base logger class

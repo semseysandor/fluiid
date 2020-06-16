@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fluiid.Source.Components.Logger
+﻿namespace Fluiid.Source.Components.Logger
 {
   /// <summary>
   /// Logging level
@@ -45,10 +39,11 @@ namespace Fluiid.Source.Components.Logger
     /// Return log level string
     /// </summary>
     /// <param name="loglevel">Log level integer</param>
-    /// <returns></returns>
+    /// <returns>Log level string</returns>
     public static string LogLevelToString(int loglevel)
     {
-      switch (loglevel) {
+      switch (loglevel)
+      {
         case LogLevels.Debug:
           return "Debug";
         case LogLevels.Info:
@@ -70,7 +65,7 @@ namespace Fluiid.Source.Components.Logger
     /// Return log level string
     /// </summary>
     /// <param name="loglevel">Log level string</param>
-    /// <returns></returns>
+    /// <returns>Log level integer</returns>
     public static int LogLevelFromString(string loglevel)
     {
       switch (loglevel)

@@ -17,7 +17,7 @@ namespace Fluiid.Source.Components.Logger
     /// Constructor
     /// </summary>
     /// <param name="path">Log file path</param>
-    public FileLogger(string path = ""):base()
+    public FileLogger(string path = "") : base()
     {
       LogFile = path;
     }
@@ -37,7 +37,7 @@ namespace Fluiid.Source.Components.Logger
           return;
         }
 
-        // If message level is hugher than log level --> important msg, log it
+        // If message level is higher than log level --> important msg, log it
         if (msgLevel >= LogLevel)
         {
           // Also write to console
@@ -48,7 +48,7 @@ namespace Fluiid.Source.Components.Logger
 
           // Write to log
           System.IO.File.AppendAllText(LogFile, message);
-        }    
+        }
       }
       catch (System.Exception ex)
       {
