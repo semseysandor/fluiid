@@ -14,7 +14,7 @@ namespace Fluiid.Source
     /// <summary>
     /// Settings File
     /// </summary>
-    public static string settingsFile = "Asset" + Path.DirectorySeparatorChar + "config.xml";
+    public static string settingsFile = "config.xml";
 
     /// <summary>
     /// Actual configs
