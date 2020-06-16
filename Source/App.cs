@@ -161,8 +161,43 @@ namespace Fluiid.Source
       // Set UI to busy
       main.AppBusy();
 
+      // Add exception handling to worker
+      worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(WorkerErrorHandling);
+
       // Start worker
       worker.RunWorkerAsync();
+    }
+
+    /// <summary>
+    /// Error handling for worker jobs
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void WorkerErrorHandling(object sender, RunWorkerCompletedEventArgs e)
+    {
+      // Remove this event handler to allow garbage collection on the worker later
+      worker.RunWorkerCompleted -= WorkerErrorHandling;
+
+      // No exception --> worker finished OK --> do nothing
+      if (e.Error is null)
+      {
+        
+        return;
+      }
+
+      // Handle exception according to its type
+      switch (e.Error)
+      {
+        case LoggerException loggerException:
+          exceptionHandler.handleLoggingError(loggerException);
+          break;
+        case BaseException baseException:
+          exceptionHandler.handleError(baseException);
+          break;
+        case System.Exception exception:
+          exceptionHandler.handleError(exception);
+          break;
+      }
     }
   }
 }

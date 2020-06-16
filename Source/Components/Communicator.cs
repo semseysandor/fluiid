@@ -98,12 +98,10 @@ namespace Fluiid.Source.Components
       logger.Debug("Connecting to device...");
 
       // Simulation
-      Thread.Sleep(2000);
-      logger.Info("Device connected.");
-      Connected?.Invoke();
-      Thread.Sleep(2000);
-      logger.Info("kutya faja");
-      return;
+      Thread.Sleep(1000);
+      //logger.Info("Device connected.");
+      //Connected?.Invoke();
+      //return;
 
       try
       {
@@ -137,7 +135,7 @@ namespace Fluiid.Source.Components
       Disconnected?.Invoke();
       return;
 
-      // Chech if already closed
+      // Check if already closed
       if (port.IsOpen == false)
       {
         Disconnected?.Invoke();

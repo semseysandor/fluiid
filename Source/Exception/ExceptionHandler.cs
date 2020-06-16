@@ -67,6 +67,16 @@ namespace Fluiid.Source.Exception
     }
 
     /// <summary>
+    /// Handling Error
+    /// </summary>
+    /// <param name="ex">Exception</param>
+    public void handleError(BaseException ex)
+    {
+      LogError(ex);
+      ShowError(ex.Message, ex.Context);
+    }
+
+    /// <summary>
     /// Handling Logging errors
     /// </summary>
     /// <param name="ex">Exception</param>
