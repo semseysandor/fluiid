@@ -137,13 +137,14 @@ namespace Fluiid.Source.Forms
     /// <param name="e"></param>
     public void DeviceConnected()
     {
-      TextConnection.Text = "Connected";
+      statusLabel.Text = "Connected";
       ButtonConnect.Hide();
       ButtonDisconnect.Show();
       ButtonInit.Show();
       ButtonWash.Show();
       ButtonSend.Show();
       TextBoxCmd.Show();
+      sendGroupBox.Show();
     }
 
     /// <summary>
@@ -153,13 +154,14 @@ namespace Fluiid.Source.Forms
     /// <param name="e"></param>
     public void DeviceDisConnected()
     {
-      TextConnection.Text = "Disconnected";
+      statusLabel.Text = "Disconnected";
       ButtonConnect.Show();
       ButtonDisconnect.Hide();
       ButtonInit.Hide();
       ButtonWash.Hide();
       ButtonSend.Hide();
       TextBoxCmd.Hide();
+      sendGroupBox.Hide();
     }
   }
 }
